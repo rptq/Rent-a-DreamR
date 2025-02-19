@@ -54,7 +54,7 @@
                         nuestros novios y novias de alquiler están disponibles para acompañarte en cualquier evento o
                         situación.
                     </p>
-                    <br>
+                    <br> 
                     <div>
                         <button class="button type1">
                             <span class="btn-txt">saber más</span>
