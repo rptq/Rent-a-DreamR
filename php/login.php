@@ -17,7 +17,9 @@
         }
         
         if ($emailExists && $passwordExists){
-            header("Location: index.php");
+            header("Location: /index.html");
+        } else {
+            echo "<p>Incorrect user</p>";
         }
         
     }
@@ -35,7 +37,7 @@
 <body>
     <div class="login">
         <div style="justify-content: center;text-align:center;">
-            <a href="index.php"><img src="img/Rent-a-dream-logo-only.png" width="180rem" alt=""></a>
+            <a href="/index.html"><img src="img/Rent-a-dream-logo-only.png" width="180rem" alt=""></a>
         </div>
         <div style="display:flex;text-align: center;justify-content:center;">
             <!-- From Uiverse.io by Smit-Prajapati -->
