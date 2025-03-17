@@ -1,19 +1,21 @@
 <?php
 session_start();
-$_SESSION["users"] = [
-    [
-        "email" => "admin@admin.net",
-        "name" => "admin",
-        "dni" => null,
-        "password" => "admin"
-    ],
-    [
-        "email" => "user@user.net",
-        "name" => "user",
-        "dni" => null,
-        "password" => "user"
-    ]
-];
+if (!isset($_SESSION["users"])){
+    $_SESSION["users"] = [
+        [
+            "email" => "admin@admin.net",
+            "name" => "admin",
+            "dni" => null,
+            "password" => password_hash("admin", PASSWORD_DEFAULT)
+        ],
+        [
+            "email" => "user@user.net",
+            "name" => "user",
+            "dni" => null,
+            "password" => password_hash("user", PASSWORD_DEFAULT)
+        ]
+    ];
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -21,16 +23,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = htmlspecialchars(trim($_POST['email']));
     $password = htmlspecialchars($_POST['password']);
 
-    foreach ($_SESSION["users"] as $user) {
-        $emailExists = ($user["email"] == $email);
-        $passwordExists = ($user["password"] == $password);
-    }
-
     $isValidUser = false;
 
     // Verificar credenciales recorriendo los usuarios
     foreach ($_SESSION["users"] as $user) {
-        if ($user["email"] === $email && $user["password"] === $password) {
+        if ($user["email"] === $email && password_verify($password, $user["password"])) {
             $isValidUser = true;
             break; // No es necesario seguir buscando
         }
@@ -59,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <div class="login">
         <div style="justify-content: center;text-align:center;">
-            <a href="/index.html"><img src="/img/Rent-a-dream-logo-only.png" width="150rem" alt=""></a>
+            <a href="/index.html"><img src="../img/Rent-a-dream-logo-only.png" width="150rem" alt=""></a>
         </div>
         <div style="display:flex;text-align: center;justify-content:center;align-items: center;">
             <div class="container">
