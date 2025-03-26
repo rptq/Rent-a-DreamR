@@ -1,5 +1,8 @@
 <?php
 session_start();
+if ($_SESSION["users"])
+
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["Register"])) {
     $email = htmlspecialchars(trim($_POST['email']));
     $nombre = htmlspecialchars(trim($_POST['nombre']));
@@ -21,7 +24,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["Register"])) {
             "email" => $email,
             "name" => $nombre,
             "dni" => $dni,
-            "password" => $password
+            "password" => $password,
+            "rol" => "user"
         ];
         
         // Mandar al login

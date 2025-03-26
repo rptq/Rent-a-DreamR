@@ -6,13 +6,15 @@ if (!isset($_SESSION["users"])){
             "email" => "admin@admin.net",
             "name" => "admin",
             "dni" => null,
-            "password" => password_hash("admin", PASSWORD_DEFAULT)
+            "password" => password_hash("admin", PASSWORD_DEFAULT),
+            "rol" => "admin"
         ],
         [
             "email" => "user@user.net",
             "name" => "user",
             "dni" => null,
-            "password" => password_hash("user", PASSWORD_DEFAULT)
+            "password" => password_hash("user", PASSWORD_DEFAULT),
+            "rol" => "user"
         ]
     ];
 }
@@ -29,17 +31,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     foreach ($_SESSION["users"] as $user) {
         if ($user["email"] === $email && password_verify($password, $user["password"])) {
             $isValidUser = true;
+            $_SESSION["activeUser"]=[
+                "email" => $user["email"],
+                "name" => $user["name"],
+                "dni" => $user["dni"],
+                "password" => $user["password"],
+                "rol" => $user["rol"]
+            ];
             break; // No es necesario seguir buscando
         }
     }
 
     // Redirigir si las credenciales son correctas
     if ($isValidUser) {
-        header("Location: ../index.html");
-        exit(); // Detener ejecución
+        if ($_SESSION["activeUser"]["rol"] === "user"){
+            header("Location: ../index.html");
+            exit(); // Detener ejecución
+        } else {
+            header("Location: sign_up.php");
+            exit(); // Detener ejecución
+        }
     } else {
         echo "<p style='color:red; text-align:center;'>Incorrect user</p>";
     }
+
+
 }
 ?>
 
