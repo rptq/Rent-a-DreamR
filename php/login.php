@@ -72,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <div class="login">
         <div style="justify-content: center;text-align:center;">
-            <a href="/index.html"><img src="../img/Rent-a-dream-logo-only.png" width="150rem" alt=""></a>
+            <a href="../index.html"><img src="../img/Rent-a-dream-logo-only.png" width="150rem" alt=""></a>
         </div>
         <div style="display:flex;text-align: center;justify-content:center;align-items: center;">
             <div class="container">
