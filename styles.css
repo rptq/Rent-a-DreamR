@@ -45,6 +45,8 @@ a:hover {
 #madre {
     margin-left: 10%;
 }
+
+
 .filter-button {
     height: 35px;
     margin: 0;  
@@ -78,6 +80,121 @@ a:hover {
     background: linear-gradient(145deg, #ffe6f2, #fff0f6);
 }
 
+/* Estilos específicos para la página de chicos */
+.catalog-container {
+    display: flex;
+    padding: 2rem;
+    gap: 2rem;
+}
+
+.filters {
+    width: 250px;
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    height: 27rem;
+}
+
+.filter-section {
+    margin-bottom: 1.5rem;
+}
+
+.filter-section h3 {
+    margin-bottom: 0.8rem;
+    color: #333;
+    font-size: 1.1rem;
+}
+
+.filter-option {
+    margin-bottom: 0.5rem;
+}
+
+.filter-option label {
+    margin-left: 0.5rem;
+    color: #555;
+}
+
+.catalog {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.profile-card {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.profile-card:hover {
+    transform: translateY(-5px);
+}
+
+.profile-image {
+    height: 200px;
+    background-color: #eee;
+    background-size: cover;
+    background-position: center;
+}
+
+.profile-info {
+    padding: 1.2rem;
+}
+
+.profile-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.profile-rating {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.stars {
+    color: #ffc107;
+    margin-right: 0.5rem;
+}
+
+.rating-value {
+    font-size: 0.9rem;
+    color: #777;
+}
+
+.profile-description {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+}
+
+.profile-price {
+    font-weight: 600;
+    color: #ff9cf0;
+}
+
+.apply-filters {
+    background-color: #ff9cf0;
+    color: white;
+    border: none;
+    padding: 0.7rem 1.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.apply-filters:hover {
+    background-color: #ff9cf0;
+}
 
 .mainp {
     padding-left: 5rem;
