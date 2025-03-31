@@ -105,7 +105,7 @@
         <!-- Catálogo de chicos -->
         <div class="catalog-container">
             <!-- Filtros -->
-            <div class="filters">
+            <div id="filters-display" class="filters">
                 <div class="filter-section">
                     <h3>Edad</h3>
                     <div class="filter-option">
