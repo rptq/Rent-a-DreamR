@@ -105,7 +105,7 @@
             <div class="catalog">
                 <!-- Perfil 1 -->
                 <div class="profile-card">
-                    <div class="profile-image" style="background-image: url('img/workers/man/miguel-sigma.png');"></div>
+                    <div class="profile-image" style="background-image: url('https://i.pinimg.com/736x/3c/b5/b2/3cb5b219284e5f19efbc4dea48584361.jpg');"></div>
                     <div class="profile-info">
                         <h3 class="profile-name">Miguel</h3>
                         <div class="profile-rating">
@@ -119,7 +119,7 @@
 
                 <!-- Perfil 2 -->
                 <div class="profile-card">
-                    <div class="profile-image" style="background-image: url('img/workers/man/elias.png');"></div>
+                    <div class="profile-image" style="background-image: url('https://i.pinimg.com/736x/d9/30/85/d9308578434e0351eec88b9abe5ba536.jpg');"></div>
                     <div class="profile-info">
                         <h3 class="profile-name">Elias</h3>
                         <div class="profile-rating">
@@ -133,7 +133,7 @@
 
                 <!-- Perfil 3 -->
                 <div class="profile-card">
-                    <div class="profile-image" style="background-image: url('img/workers/man/mistetiousgay.png');"></div>
+                    <div class="profile-image" style="background-image: url('https://i.pinimg.com/736x/d3/61/51/d3615103c8980509e99408c97c0186b9.jpg');"></div>
                     <div class="profile-info">
                         <h3 class="profile-name">Marcos</h3>
                         <div class="profile-rating">
@@ -147,7 +147,7 @@
 
                 <!-- Perfil 4 -->
                 <div class="profile-card">
-                    <div class="profile-image" style="background-image: url('img/workers/man/jorge.png');"></div>
+                    <div class="profile-image" style="background-image: url('https://i.pinimg.com/736x/eb/13/f6/eb13f675bc5182afe442055621337834.jpg');"></div>
                     <div class="profile-info">
                         <h3 class="profile-name">Javier</h3>
                         <div class="profile-rating">
@@ -161,7 +161,7 @@
 
                 <!-- Perfil 5 -->
                 <div class="profile-card">
-                    <div class="profile-image" style="background-image: url('img/chico5.jpg');"></div>
+                    <div class="profile-image" style="background-image: url('https://es.pinterest.com/pin/680536193727890414/');"></div>
                     <div class="profile-info">
                         <h3 class="profile-name">Sergio</h3>
                         <div class="profile-rating">
