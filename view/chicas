@@ -22,7 +22,7 @@
                 <span>|</span>
                 <a href="chicas">CHICAS</a>
                 <span>|</span>
-                <a href="chicas">chicas</a>
+                <a href="chicos">CHICOS</a>
                 <span>|</span>
                 <a href="exotico">EXOTICO</a>
             </div>
@@ -43,7 +43,7 @@
         <header>
             <div class="mainp">
                 <div class="mainp-slogan">
-                    <h2 class="mainp-slogan-h2">chicas</h2>
+                    <h2 class="mainp-slogan-h2">CHICAS</h2>
                     <p class="mainp-slogan-txt">Compañeros de confianza y de calidad</p>
                 </div>
             </div>
