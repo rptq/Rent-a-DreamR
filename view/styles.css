@@ -526,6 +526,10 @@ a:hover {
     box-shadow: rgba(133, 189, 215, 0.8784313725) 0px 15px 10px -10px;
   }
   
+ 
+  #filters-mobile{
+    display: none;
+}
     
   /* container login fin */
 
@@ -568,5 +572,51 @@ a:hover {
 
     .mainp-ratings {
         display: flex;
+    }
+}
+@media (max-width: 750px) {
+    .mainp {
+        flex-direction: column;
+        padding: 0;
+        margin: 0;
+        text-align: center;
+    }
+
+    .mainp-slogan {
+        text-align: center;
+        width: 70%;
+    }
+
+    .mainp-slogan-txt {
+        text-align: justify;
+    }
+
+    .mainp-slogan-h2 {
+        text-align: left;
+    }
+
+    .mainp-foto {}
+
+    .mainp-ratings {
+        display: flex;
+    }
+
+    #filters-display{
+        display: none;
+    }
+    #filters-mobile{
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    
+    }
+    .filters{
+        display: flex;
+        height: auto;
+        justify-content: space-between;
+        width: auto;
+        margin-left: 2rem;
+        margin-right: 2rem;
+        flex-direction: column;
     }
 }
