@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rent a Dream - Chicos</title>
+    <title>Rent a Dream - chicas</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,7 +22,7 @@
                 <span>|</span>
                 <a href="chicas">CHICAS</a>
                 <span>|</span>
-                <a href="chicos">CHICOS</a>
+                <a href="chicas">chicas</a>
                 <span>|</span>
                 <a href="exotico">EXOTICO</a>
             </div>
@@ -43,13 +43,13 @@
         <header>
             <div class="mainp">
                 <div class="mainp-slogan">
-                    <h2 class="mainp-slogan-h2">CHICOS</h2>
+                    <h2 class="mainp-slogan-h2">chicas</h2>
                     <p class="mainp-slogan-txt">Compañeros de confianza y de calidad</p>
                 </div>
             </div>
         </header>
 
-        <!-- Catálogo de chicos -->
+        <!-- Catálogo de chicas -->
         <div class="catalog-container">
             <!-- Filtros -->
             <div class="filters">
