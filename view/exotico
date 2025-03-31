@@ -56,11 +56,6 @@
                     <h3>Edad</h3>
                     <div class="filter-option">
                         <input type="checkbox" id="age-18-25" checked>
-                        <!-- From Uiverse.io by DaniloMGutavo --> 
-<label class="checkbox-container">
-    <input class="custom-checkbox" checked="" type="checkbox">
-    <span class="checkmark"></span>
-</label>
 
                         <label for="age-18-25">18-25 años</label>
                     </div>
