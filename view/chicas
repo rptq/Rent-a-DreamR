@@ -177,7 +177,7 @@
                 <div class="profile-card">
                     <div class="profile-image" style="background-image: url('img/chica6.jpg');"></div>
                     <div class="profile-info">
-                        <h3 class="profile-name"></h3>
+                        <h3 class="profile-name">Carlota</h3>
                         <div class="profile-rating">
                             <div class="stars">★★★★☆</div>
                             <span class="rating-value">4.6</span>

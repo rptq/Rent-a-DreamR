@@ -57,6 +57,12 @@
                     <h3>Edad</h3>
                     <div class="filter-option">
                         <input type="checkbox" id="age-18-25" checked>
+                        <!-- From Uiverse.io by DaniloMGutavo --> 
+<label class="checkbox-container">
+    <input class="custom-checkbox" checked="" type="checkbox">
+    <span class="checkmark"></span>
+</label>
+
                         <label for="age-18-25">18-25 años</label>
                     </div>
                     <div class="filter-option">
@@ -119,7 +125,7 @@
 
                 <!-- Perfil 2 -->
                 <div class="profile-card">
-                    <div class="profile-image" style="background-image: url('img/chico2.jpg');"></div>
+                    <div class="profile-image" style="background-image: url('img/workers/exotic/enanit.jpg');"></div>
                     <div class="profile-info">
                         <h3 class="profile-name">David</h3>
                         <div class="profile-rating">
@@ -133,7 +139,7 @@
 
                 <!-- Perfil 3 -->
                 <div class="profile-card">
-                    <div class="profile-image" style="background-image: url('img/chico3.jpg');"></div>
+                    <div class="profile-image" style="background-image: url('img/workers/exotic/skinnienanit.png');"></div>
                     <div class="profile-info">
                         <h3 class="profile-name">Marcos</h3>
                         <div class="profile-rating">
@@ -147,7 +153,7 @@
 
                 <!-- Perfil 4 -->
                 <div class="profile-card">
-                    <div class="profile-image" style="background-image: url('img/chico4.jpg');"></div>
+                    <div class="profile-image" style="background-image: url('img/workers/exotic/cecinano.png');"></div>
                     <div class="profile-info">
                         <h3 class="profile-name">Javier</h3>
                         <div class="profile-rating">
@@ -161,7 +167,7 @@
 
                 <!-- Perfil 5 -->
                 <div class="profile-card">
-                    <div class="profile-image" style="background-image: url('img/chico5.jpg');"></div>
+                    <div class="profile-image" style="background-image: url('img/workers/exotic/gotic.png');"></div>
                     <div class="profile-info">
                         <h3 class="profile-name">Sergio</h3>
                         <div class="profile-rating">
@@ -175,7 +181,7 @@
 
                 <!-- Perfil 6 -->
                 <div class="profile-card">
-                    <div class="profile-image" style="background-image: url('img/chico6.jpg');"></div>
+                    <div class="profile-image" style="background-image: url('img/workers/exotic/gotic2.png');"></div>
                     <div class="profile-info">
                         <h3 class="profile-name">Carlos</h3>
                         <div class="profile-rating">
