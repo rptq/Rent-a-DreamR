@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rent a Dream - Chicos</title>
+    <title>Rent a Dream - Exotico</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,7 +43,7 @@
         <header>
             <div class="mainp">
                 <div class="mainp-slogan">
-                    <h2 class="mainp-slogan-h2">CHICOS</h2>
+                    <h2 class="mainp-slogan-h2">Exotico</h2>
                     <p class="mainp-slogan-txt">Compañeros de confianza y de calidad</p>
                 </div>
             </div>
@@ -105,7 +105,7 @@
             <div class="catalog">
                 <!-- Perfil 1 -->
                 <div class="profile-card">
-                    <div class="profile-image" style="background-image: url('img/chico1.jpg');"></div>
+                    <div class="profile-image" style="background-image: url('img/workers/man/Eric-UwU.png');"></div>
                     <div class="profile-info">
                         <h3 class="profile-name">Alejandro</h3>
                         <div class="profile-rating">
