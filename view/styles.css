@@ -530,6 +530,10 @@ a:hover {
   #filters-mobile{
     display: none;
 }
+
+.display-nav2-mobile{
+    display: none;
+}
     
   /* container login fin */
 
@@ -568,8 +572,6 @@ a:hover {
         text-align: left;
     }
 
-    .mainp-foto {}
-
     .mainp-ratings {
         display: flex;
     }
@@ -595,8 +597,6 @@ a:hover {
         text-align: left;
     }
 
-    .mainp-foto {}
-
     .mainp-ratings {
         display: flex;
     }
@@ -609,6 +609,16 @@ a:hover {
         justify-content: center;
         flex-direction: column;
     
+    }
+    .display-nav2-mobile{
+        display: contents;
+    }
+
+    .display-nav2-mobile a{
+        font-size: 0.8rem;
+    }
+    .display-nav2{
+        display: none;
     }
     .filters{
         display: flex;

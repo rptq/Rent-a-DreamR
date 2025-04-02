@@ -159,7 +159,7 @@
                 <div class="profile-card">
                     <div class="profile-image" style="background-image: url('img/workers/man/miguel-sigma.png');"></div>
                     <div class="profile-info">
-                        <h3 class="profile-name">Miguel</h3>
+                        <a href="" style="margin: 0; padding: 0;"><h3 class="profile-name">Miguel</h3></a>
                         <div class="profile-rating">
                             <div class="stars">★★★★★</div>
                             <span class="rating-value">4.9</span>
