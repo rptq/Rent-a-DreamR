@@ -219,13 +219,12 @@
                 <div class="profile-card">
                     <div class="profile-image" style="background-image: url('img/workers/man/fumao.png');"></div>
                     <div class="profile-info">
-                        <h3 class="profile-name">Sergio</h3>
+                        <h3 class="profile-name">Robert</h3>
                         <div class="profile-rating">
                             <div class="stars">★★★★★</div>
                             <span class="rating-value">4.8</span>
                         </div>
-                        <p class="profile-description">Elegante y sofisticado, especializado en eventos de alta
-                            sociedad.</p>
+                        <p class="profile-description">Una experiencia inolvidable.</p>
                         <p class="profile-price">Desde 180€/hora</p>
                     </div>
                 </div>
