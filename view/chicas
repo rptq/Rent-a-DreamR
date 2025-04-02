@@ -173,7 +173,7 @@
                 <!-- Perfil 2 -->
                 <div class="profile-card">
                     <div class="profile-image"
-                        style="background-image: url('img/workers/girl/Isabella.png');">
+                        style="background-image: url('img/workers/girl/Valentina.png');">
                     </div>
                     <div class="profile-info">
                         <h3 class="profile-name">Valentina</h3>
@@ -190,7 +190,7 @@
                 <!-- Perfil 3 -->
                 <div class="profile-card">
                     <div class="profile-image"
-                        style="background-image: url('https://i.pinimg.com/736x/66/cf/51/66cf511f737cb49d3573a354738475f4.jpg');">
+                        style="background-image: url('img/workers/girl/Isabella.png');">
                     </div>
                     <div class="profile-info">
                         <h3 class="profile-name">Isabella</h3>
