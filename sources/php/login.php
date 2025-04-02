@@ -1,23 +1,7 @@
 <?php
+include 'functions.php';
 session_start();
-if (!isset($_SESSION["users"])){
-    $_SESSION["users"] = [
-        [
-            "email" => "admin@admin.net",
-            "name" => "admin",
-            "dni" => null,
-            "password" => password_hash("admin", PASSWORD_DEFAULT),
-            "rol" => "admin"
-        ],
-        [
-            "email" => "user@user.net",
-            "name" => "user",
-            "dni" => null,
-            "password" => password_hash("user", PASSWORD_DEFAULT),
-            "rol" => "user"
-        ]
-    ];
-}
+createUserIfnotExists();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -31,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     foreach ($_SESSION["users"] as $user) {
         if ($user["email"] === $email && password_verify($password, $user["password"])) {
             $isValidUser = true;
-            $_SESSION["activeUser"]=[
+            $_SESSION["activeUser"] = [
                 "email" => $user["email"],
                 "name" => $user["name"],
                 "dni" => $user["dni"],
@@ -44,18 +28,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Redirigir si las credenciales son correctas
     if ($isValidUser) {
-        if ($_SESSION["activeUser"]["rol"] === "user"){
-            header("Location: ../index.html");
-            exit(); // Detener ejecución
-        } else {
-            header("Location: sign_up.php");
-            exit(); // Detener ejecución
-        }
+        header("Location: ../../view/index.php");
+        exit(); // Detener ejecución
     } else {
         echo "<p style='color:red; text-align:center;'>Incorrect user</p>";
     }
-
-
 }
 ?>
 
@@ -66,13 +43,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../../view/styles.css">
 </head>
 
 <body>
     <div class="login">
         <div style="justify-content: center;text-align:center;">
-            <a href="../index.html"><img src="../img/Rent-a-dream-logo-only.png" width="150rem" alt=""></a>
+            <a href="../../view/index.php"><img src="../../view/img/Rent-a-dream-logo-only.png" width="150rem" alt=""></a>
         </div>
         <div style="display:flex;text-align: center;justify-content:center;align-items: center;">
             <div class="container">

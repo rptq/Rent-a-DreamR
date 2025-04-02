@@ -601,6 +601,137 @@ a:hover {
     align-items: center;
     gap: 10px;
 }
+
+.usuario-template { 
+    /* ------------------------------------------------------------ */
+    /* fill */
+    --fill: #00000000;
+    --fill-hover: rgba(218, 134, 209, 0.878);
+    --fill-active: rgba(218, 134, 209, 0.878);
+    /* txt */
+    --txt: #000000;
+    /*-------------------------*/
+    --br: 0.325rem;
+    --gap: 0.275rem;
+    /* ---------------------------------------------------------- */
+    display: flex;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-size: 0.975rem;
+    color: var(--txt);
+  }
+  
+  /* button */
+  .usuario-button {
+    display: inline-block;
+    list-style-type: none;
+    list-style: none;
+    appearance: none;
+    outline: 0;
+    border: 0;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: inherit;
+    color: inherit;
+    white-space: nowrap;
+    padding: calc(var(--gap) * 3) calc(var(--gap) * 5);
+    text-align: left;
+    background-color: var(--fill);
+    border-radius: var(--br);
+  }
+  
+  .usuario-button:hover {
+    background-color: var(--fill-hover);
+  }
+  
+  .usuario-button:focus,
+  .usuario-button:active,
+  .usuario-button.active {
+    background-color: var(--fill-active);
+  }
+  
+  /* popup */
+  .usuario-popup {
+    position: relative;
+  }
+  
+  .usuario-popup-header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: calc(var(--gap) * 3);
+  }
+  
+  .usuario-popup-main {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    opacity: 0;
+    margin-top: var(--gap);
+    border-radius: var(--br);
+    padding: var(--gap);
+    background-color: rgba(218, 134, 209, 0.878);
+    box-shadow: rgba(218, 134, 209, 0.878) 0px 0px 0px 1px;
+    transition: 0.4s;
+  }
+  
+  .usuario-popup:focus .usuario-popup-main {
+    margin-top: 1rem;
+    opacity: 1;
+  }
+  
+  .usuario-list-box {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+  }
+  
+  /* From Uiverse.io by Yaya12085 */ 
+.radio-inputs {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 0.5rem;
+    background-color: #EEE;
+    box-sizing: border-box;
+    box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
+    padding: 0.25rem;
+    margin: 1.3rem;
+    width: 300px;
+    font-size: 14px;
+  }
+  
+  .radio-inputs .radio {
+    flex: 1 1 auto;
+    text-align: center;
+  }
+  
+  .radio-inputs .radio input {
+    display: none;
+  }
+  
+  .radio-inputs .radio .name {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+    border: none;
+    padding: .5rem 0;
+    color: rgba(51, 65, 85, 1);
+    transition: all .15s ease-in-out;
+  }
+  
+  .radio-inputs .radio input:checked + .name {
+    background-color: #fff;
+    font-weight: 600;
+  }
+  
+  
+  
+  
     
   /* container login fin */
 
@@ -704,4 +835,5 @@ a:hover {
         margin-right: 2rem;
         flex-direction: column;
     }
+    
 }
