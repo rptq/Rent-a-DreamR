@@ -41,6 +41,21 @@
                 </a>
             </div>
         </nav>
+        <nav>
+            <div> 
+            </div>
+            <div id="nav2" class="display-nav2-mobile">
+                <a href="index.html">HOME</a>
+                <span>|</span>
+                <a href="chicas">CHICAS</a>
+                <span>|</span>
+                <a href="chicos">CHICOS</a>
+                <span>|</span>
+                <a href="exotico">EXOTICO</a>
+            </div>
+            <div>
+            </div>
+        </nav>
         <header>
             <div class="mainp">
                 <div class="mainp-slogan">
