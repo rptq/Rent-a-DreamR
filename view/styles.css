@@ -533,7 +533,7 @@ a:hover {
     
   /* container login fin */
 
-@media (max-width: 1400px) {
+@media (max-width: 1280px) {
     .mainp {
         padding-left: 5rem;
     }
@@ -568,8 +568,6 @@ a:hover {
         text-align: left;
     }
 
-    .mainp-foto {}
-
     .mainp-ratings {
         display: flex;
     }
@@ -594,8 +592,6 @@ a:hover {
     .mainp-slogan-h2 {
         text-align: left;
     }
-
-    .mainp-foto {}
 
     .mainp-ratings {
         display: flex;
