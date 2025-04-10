@@ -15,7 +15,7 @@
 <body>
     <nav>
         <div id="nav1">
-            <a href=""><img src="img/Rent-a-dream-logo-only.png" width="110rem" alt=""></a>
+            <a href="index.php"><img src="img/Rent-a-dream-logo-only.png" width="110rem" alt=""></a>
         </div>
         <div id="nav2">
             <a href="index.php">HOME</a>
@@ -27,7 +27,7 @@
             <a href="exotico">EXOTICO</a>
         </div>
         <div>
-            <a href="php/login.php">
+            <a href="login.html">
                 <button class="Btn">
                     <div class="sign"><svg viewBox="0 0 512 512">
                             <path

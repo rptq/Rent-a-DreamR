@@ -117,7 +117,7 @@
                     </div>
                   </div>
                   
-                <a href="../sources/php/login.php">
+                <a href="../view/login.html">
                     <button class="Btn">
                         <div class="sign"><svg viewBox="0 0 512 512">
                                 <path
