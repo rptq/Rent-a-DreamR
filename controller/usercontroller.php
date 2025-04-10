@@ -51,8 +51,8 @@ class UserController {
         }
     
         // Preparar y ejecutar consulta
-        $stmt = $this->conn->prepare("SELECT name, email, password FROM users WHERE name = ?");
-        $stmt->bind_param("s", $username);
+        $stmt = $this->conn->prepare("SELECT email, password FROM users WHERE name = ? AND password=?");
+        $stmt->bind_param("s", $username, $password);
         $stmt->execute();
         $result = $stmt->get_result();
     
