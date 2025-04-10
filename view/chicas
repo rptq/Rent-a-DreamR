@@ -19,7 +19,7 @@
                 <a href=""><img src="img/Rent-a-dream-logo-only.png" width="110rem" alt=""></a>
             </div>
             <div id="nav2">
-                <a href="index.html">HOME</a>
+                <a href="index.php">HOME</a>
                 <span>|</span>
                 <a href="chicas">CHICAS</a>
                 <span>|</span>
@@ -45,7 +45,7 @@
             <div> 
             </div>
             <div id="nav2" class="display-nav2-mobile">
-                <a href="index.html">HOME</a>
+                <a href="index.php">HOME</a>
                 <span>|</span>
                 <a href="chicas">CHICAS</a>
                 <span>|</span>
