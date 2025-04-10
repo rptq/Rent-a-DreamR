@@ -37,84 +37,50 @@ class UserController {
     }
 
     public function login(): void {
-        include 'functions.php';
-        session_start();
-        createUserIfnotExists();
-
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $email = htmlspecialchars(trim($_POST['email']));
-            $password = htmlspecialchars($_POST['password']);
-
-            $isValidUser = false;
-
-            foreach ($_SESSION["users"] as $user) {
-                if ($user["email"] === $email && password_verify($password, $user["password"])) {
-                    $isValidUser = true;
-                    $_SESSION["activeUser"] = [
-                        "email" => $user["email"],
-                        "name" => $user["name"],
-                        "dni" => $user["dni"],
-                        "password" => $user["password"],
-                        "rol" => $user["rol"]
-                    ];
-                    break;
-                }
-            }
-
-            if ($isValidUser) {
-                header("Location: ../../view/index.php");
+    
+        // Obtener datos del formulario
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+    
+        // Validar que no estén vacíos
+        if (empty($username) || empty($password)) {
+            $_SESSION['logged'] = false;
+            $_SESSION['error'] = "Por favor, complete todos los campos.";
+            header("Location: ../view/login.php");
+            exit();
+        }
+    
+        // Preparar y ejecutar consulta
+        $stmt = $this->conn->prepare("SELECT name, email, password FROM users WHERE name = ?");
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+    
+        // Verificar si existe el usuario
+        if ($row = $result->fetch_assoc()) {
+            // Verificar contraseña
+            if (password_verify($password, $row['password'])) {
+                // Autenticación exitosa
+                $_SESSION['logged'] = true;
+                $_SESSION['user'] = $row['name'];
+                $_SESSION['email'] = $row['email'];
+    
+                // Redirigir
+                header("Location: ../view/profile.php");
                 exit();
-            } else {
-                echo "<p style='color:red; text-align:center;'>Incorrect user</p>";
             }
         }
+    
+        // Si falla
+        $_SESSION['logged'] = false;
+        $_SESSION['error'] = "Nombre de usuario o contraseña inválidos.";
+        header("Location: ../view/login.php");
+        exit();
     }
 
     public function register(): void {
-        include 'functions.php';
-        session_start();
-        createUserIfnotExists();
-
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $name = htmlspecialchars(trim($_POST['name'] ?? ''));
-            $email = htmlspecialchars(trim($_POST['email'] ?? ''));
-            $password = htmlspecialchars($_POST['password'] ?? '');
-            $dni = htmlspecialchars(trim($_POST['dni'] ?? ''));
-            $rol = ($_POST["radio"] == "2") ? "admin" : "user";
-
-            if (empty($name) || empty($email) || empty($password) || empty($dni)) {
-                echo "<p style='color:red; text-align:center;'>Please fill in all fields.</p>";
-                return;
-            }
-
-            foreach ($_SESSION["users"] as $user) {
-                if ($user["email"] === $email) {
-                    echo "<p style='color:red; text-align:center;'>User already exists.</p>";
-                    return;
-                }
-            }
-
-            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-            $_SESSION["users"][] = [
-                "name" => $name,
-                "email" => $email,
-                "password" => $hashedPassword,
-                "dni" => $dni,
-                "rol" => $rol
-            ];
-
-            $_SESSION["activeUser"] = [
-                "name" => $name,
-                "email" => $email,
-                "password" => $hashedPassword,
-                "dni" => $dni,
-                "rol" => $rol
-            ];
-
-            header("Location: ../../view/index.php");
-            exit();
-        }
+        
+        
     }
 
     public function logout(): void {
