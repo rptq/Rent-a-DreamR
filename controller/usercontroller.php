@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 // check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -82,8 +83,59 @@ class UserController {
     }
 
     public function register(): void {
+        // Obtener datos del formulario
+        $username = $_POST['name'];
+        $email = $_POST['email'];
+        $password = $_POST['password'];
         
-        
+        echo $username . $email . $password;
+
+        // Validar que los campos no esten vacíos
+        if (empty($username) || empty($email) || empty($password)) {
+            $_SESSION['error'] = "Por favor, complete todos los campos.";
+            header("Location: ../view/sign_up.html");
+            exit();
+        }
+    
+        // Validar formato de email
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $_SESSION['error'] = "Formato de correo inválido.";
+            header("Location: ../view/sign_up.html");
+            exit();
+        }
+    
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    
+        // Prepararamos la consulta para insertar un nuevo registro
+        $stmt = $this->conn->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
+        $stmt->bind_param("sss", $username, $email, $hashedPassword);
+    
+        try {
+            if ($stmt->execute()) {
+                // Registro se inserto
+                $_SESSION['logged'] = true;
+                $_SESSION['user'] = $username;
+                $_SESSION['email'] = $email;
+    
+                $this->conn->close();
+                header("Location: ../view/index.php");
+                exit();
+            } else {
+                // Error al registrar
+                $_SESSION['error'] = "No se pudo completar el registro.";
+                $this->conn->close();
+                header("Location: ../view/sign_up.html");
+                exit();
+            }
+        } catch (Exception $e) {
+            $_SESSION['error'] = "Error: " . $e->getMessage();
+            $this->conn->close();
+            header("Location: ../view/sign_up.html");
+            exit();
+        } finally {
+            //Cerramos conexion
+            $this->conn->close();
+        }
     }
 
     public function logout(): void {
