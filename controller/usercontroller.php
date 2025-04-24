@@ -39,16 +39,19 @@ class UserController {
     public function login(): void {
     
         // Obtener datos del formulario
-        $username = $_POST['username'];
+        $username = $_POST['email'];
         $password = $_POST['password'];
     
-        // Validar que no estén vacíos
-        if (empty($username) || empty($password)) {
-            $_SESSION['logged'] = false;
-            $_SESSION['error'] = "Por favor, complete todos los campos.";
-            header("Location: ../view/login.php");
-            exit();
-        }
+        //LO COMENTO YA QUE ESTO ES DUPLICIDAD DE CODIGO YA QUE EL PROPIO 
+        //FORMULARIO OBLIGA A RELLENAR LOS CAMPOS
+
+        // // Validar que no estén vacíos
+        // if (empty($username) || empty($password)) {
+        //     $_SESSION['logged'] = false;
+        //     $_SESSION['error'] = "Por favor, complete todos los campos.";
+        //     header("Location: ../view/login.php");
+        //     exit();
+        // }
     
         // Preparar y ejecutar consulta
         $stmt = $this->conn->prepare("SELECT email, password FROM users WHERE name = ? AND password=?");
@@ -66,7 +69,7 @@ class UserController {
                 $_SESSION['email'] = $row['email'];
     
                 // Redirigir
-                header("Location: ../view/profile.php");
+                header("Location: ../view/index.php");
                 exit();
             }
         }
