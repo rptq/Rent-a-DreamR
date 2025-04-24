@@ -19,4 +19,8 @@
             ];
         }
     }
+
+    function printUserControllerError(): void{
+        echo($_SESSION['Error']);
+    }
 ?>

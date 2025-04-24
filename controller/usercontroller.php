@@ -40,23 +40,12 @@ class UserController {
     public function login(): void {
     
         // Obtener datos del formulario
-        $username = $_POST['email'];
+        $email = $_POST['email'];
         $password = $_POST['password'];
     
-        //LO COMENTO YA QUE ESTO ES DUPLICIDAD DE CODIGO YA QUE EL PROPIO 
-        //FORMULARIO OBLIGA A RELLENAR LOS CAMPOS
-
-        // // Validar que no estén vacíos
-        // if (empty($username) || empty($password)) {
-        //     $_SESSION['logged'] = false;
-        //     $_SESSION['error'] = "Por favor, complete todos los campos.";
-        //     header("Location: ../view/login.php");
-        //     exit();
-        // }
-    
         // Preparar y ejecutar consulta
-        $stmt = $this->conn->prepare("SELECT email, password FROM users WHERE name = ? AND password=?");
-        $stmt->bind_param("s", $username, $password);
+        $stmt = $this->conn->prepare("SELECT name, password FROM users WHERE email = ? AND password = ?");
+        $stmt->bind_param("ss", $email, $password);
         $stmt->execute();
         $result = $stmt->get_result();
     
@@ -66,7 +55,7 @@ class UserController {
             if (password_verify($password, $row['password'])) {
                 // Autenticación exitosa
                 $_SESSION['logged'] = true;
-                $_SESSION['user'] = $row['name'];
+                $_SESSION['username'] = $row['name'];
                 $_SESSION['email'] = $row['email'];
     
                 // Redirigir
@@ -78,7 +67,7 @@ class UserController {
         // Si falla
         $_SESSION['logged'] = false;
         $_SESSION['error'] = "Nombre de usuario o contraseña inválidos.";
-        header("Location: ../view/login.php");
+        header("Location: ../view/login.html");
         exit();
     }
 
