@@ -76,8 +76,6 @@ class UserController {
         $username = $_POST['name'];
         $email = $_POST['email'];
         $password = $_POST['password'];
-        
-        echo $username . $email . $password;
 
         // Validar que los campos no esten vacíos
         if (empty($username) || empty($email) || empty($password)) {
@@ -93,11 +91,9 @@ class UserController {
             exit();
         }
     
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-    
         // Prepararamos la consulta para insertar un nuevo registro
         $stmt = $this->conn->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
-        $stmt->bind_param("sss", $username, $email, $hashedPassword);
+        $stmt->bind_param("sss", $username, $email, $password);
     
         try {
             if ($stmt->execute()) {
