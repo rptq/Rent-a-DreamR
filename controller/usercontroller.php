@@ -42,6 +42,7 @@ class UserController {
         // Obtener datos del formulario
         $email = $_POST['email'];
         $password = $_POST['password'];
+        
     
         // Preparar y ejecutar consulta
         $stmt = $this->conn->prepare("SELECT name, password FROM users WHERE email = ? AND password = ?");
@@ -52,7 +53,7 @@ class UserController {
         // Verificar si existe el usuario
         if ($row = $result->fetch_assoc()) {
             // Verificar contraseña
-            if (password_verify($password, $row['password'])) {
+            if ($password == $row['password']) {
                 // Autenticación exitosa
                 $_SESSION['logged'] = true;
                 $_SESSION['username'] = $row['name'];
@@ -67,7 +68,9 @@ class UserController {
         // Si falla
         $_SESSION['logged'] = false;
         $_SESSION['error'] = "Nombre de usuario o contraseña inválidos.";
-        header("Location: ../view/login.html");
+        echo $_SESSION['error'];
+        echo $password;
+        // header("Location: ../view/login.html");
         exit();
     }
 
