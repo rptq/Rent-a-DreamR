@@ -58,6 +58,9 @@ class UserController {
                 $_SESSION['logged'] = true;
                 $_SESSION['username'] = $row['name'];
                 $_SESSION['email'] = $row['email'];
+                $_SESSION['password'] = $row['password'];
+                $_SESSION['rol'] = $row['rol'];
+                $_SESSION['dni'] = $row['dni'];
     
                 // Redirigir
                 header("Location: ../view/index.php");
@@ -76,9 +79,11 @@ class UserController {
 
     public function register(): void {
         // Obtener datos del formulario
-        $username = $_POST['name'];
         $email = $_POST['email'];
+        $username = $_POST['name'];
         $password = $_POST['password'];
+        $rol = $_POST["rol"];
+        $dni = $_POST["dni"];
 
         // Validar que los campos no esten vacíos
         if (empty($username) || empty($email) || empty($password)) {
@@ -95,15 +100,17 @@ class UserController {
         }
     
         // Prepararamos la consulta para insertar un nuevo registro
-        $stmt = $this->conn->prepare("INSERT INTO users (name, email, password) VALUES (?, ?, ?)");
-        $stmt->bind_param("sss", $username, $email, $password);
+        $stmt = $this->conn->prepare("INSERT INTO users (name, email, password, rol, dni) VALUES (?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssss", $username, $email, $password, $rol, $dni);
     
         try {
             if ($stmt->execute()) {
                 // Registro se inserto
                 $_SESSION['logged'] = true;
-                $_SESSION['user'] = $username;
+                $_SESSION['username'] = $username;
                 $_SESSION['email'] = $email;
+                $_SESSION['rol'] = $rol;
+                $_SESSION['dni'] = $dni;
     
                 $this->conn->close();
                 header("Location: ../view/index.php");
@@ -131,7 +138,7 @@ class UserController {
         session_unset();
         session_destroy();
 
-        header("Location: ../../view/login.php");
+        header("Location: ../view/login.html");
         exit();
     }
 }

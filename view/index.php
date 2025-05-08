@@ -1,34 +1,35 @@
 <?php
-  session_start();
-  if (!isset($_SESSION["activeUser"])){
-    $_SESSION["activeUser"]=[
-      "email" => null,
-      "name" => null,
-      "dni" => null,
-      "password" => null,
-      "rol" => null
+session_start();
+require_once "../controller/functions.php";
+if (!isset($_SESSION["activeUser"])) {
+  $_SESSION["activeUser"] = [
+    "email" => null,
+    "name" => null,
+    "dni" => null,
+    "password" => null,
+    "rol" => null
   ];
-  }
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rent a Dream</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rent a Dream</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
 
 <body>
     <div>
         <nav>
             <div id="nav1">
-                <a class="logo-img" href=""><img src="img/Rent-a-dream-logo-only.png" width="110rem" alt=""></a>
+              <a class="logo-img" href=""><img src="img/Rent-a-dream-logo-only.png" width="110rem" alt=""></a>
             </div>
             <div id="nav2" class="display-nav2">
                 <a href="index.php">HOME</a>
@@ -52,12 +53,12 @@
                           <p
                           style="letter-spacing: 1px; font-weight: 600;   padding-left: 0.625rem;"
                         >
-                          <?php echo $_SESSION["activeUser"]["name"]?>
+                          <?php printUserName(); ?>
                         </p>
                         <p
                           style="letter-spacing: 1px; font-weight: 600;   padding-left: 0.625rem;font-size: 0.5rem;"
                         >
-                          <?php echo $_SESSION["activeUser"]["rol"]?>
+                          <?php printRol(); ?>
                         </p>  
                         </div>
                   
@@ -111,13 +112,15 @@
                       <div class="usuario-popup-main">
                         <ul class="usuario-list-box">
                           <li class="usuario-button usuario-item">user config</li>
-                          
+                          <form action="../controller/usercontroller.php" class="form" method="POST">
+                            <li class="usuario-button usuario-item"><input type="submit" name="logout" value="logout" style="border: none;background: none;"></li>
+                          </form>
                         </ul>
                       </div>
                     </div>
                   </div>
                   
-                <a href="../view/login.html"> 
+                <a href="../view/login.html">
                     <button class="Btn">
                         <div class="sign"><svg viewBox="0 0 512 512">
                                 <path
@@ -125,115 +128,115 @@
                                 </path>
                             </svg></div>
 
-                        <div class="text">Login</div>
-                    </button>
-                </a>
-            </div>
-        </nav>
-        <nav>
-            <div> 
-            </div>
-            <div id="nav2" class="display-nav2-mobile">
-                <a href="index.html">HOME</a>
-                <span>|</span>
-                <a href="chicas">CHICAS</a>
-                <span>|</span>
-                <a href="chicos">CHICOS</a>
-                <span>|</span>
-                <a href="exotico">EXOTICO</a>
-            </div>
-            <div>
-            </div>
-        </nav>
-        <header>
-            <div class="mainp">
-                <div class="mainp-slogan">
-                    <h2 class="mainp-slogan-h2">TUS PAREJAS MÁS BELLAS</h2>
-                    <p class="mainp-slogan-txt">Parejas de confianza y de calidad</p>
-                    <p class="mainp-slogan-txt">
-                        ¿Buscas compañía para una ocasión especial o simplemente quieres compartir un momento agradable?
-                        Nuestra agencia te conecta con personas amables,
-                        respetuosas y que saben cómo hacerte sentir especial. Desde una cena elegante hasta un paseo por
-                        la ciudad,
-                        nuestros novios y novias de alquiler están disponibles para acompañarte en cualquier evento o
-                        situación.
-                    </p>
-                    <br> 
-                    <div>
-                        <button class="button type1">
-                            <span class="btn-txt">saber más</span>
-                        </button>
-                    </div>
-                </div>
-                <div class="mainp-foto">
-                    <img src="img/Rent-a-dream-logo-only.png" alt="" width="100%">
-                </div>
-                <div class="mainp-ratings">
-                    <div class="card">
-                        <div class="stars">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                                class="star">
-                                <path
-                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
-                                </path>
-                            </svg>
+            <div class="text">Login</div>
+          </button>
+        </a>
+      </div>
+    </nav>
+    <nav>
+      <div>
+      </div>
+      <div id="nav2" class="display-nav2-mobile">
+        <a href="index.html">HOME</a>
+        <span>|</span>
+        <a href="chicas">CHICAS</a>
+        <span>|</span>
+        <a href="chicos">CHICOS</a>
+        <span>|</span>
+        <a href="exotico">EXOTICO</a>
+      </div>
+      <div>
+      </div>
+    </nav>
+    <header>
+      <div class="mainp">
+        <div class="mainp-slogan">
+          <h2 class="mainp-slogan-h2">TUS PAREJAS MÁS BELLAS</h2>
+          <p class="mainp-slogan-txt">Parejas de confianza y de calidad</p>
+          <p class="mainp-slogan-txt">
+            ¿Buscas compañía para una ocasión especial o simplemente quieres compartir un momento agradable?
+            Nuestra agencia te conecta con personas amables,
+            respetuosas y que saben cómo hacerte sentir especial. Desde una cena elegante hasta un paseo por
+            la ciudad,
+            nuestros novios y novias de alquiler están disponibles para acompañarte en cualquier evento o
+            situación.
+          </p>
+          <br>
+          <div>
+            <button class="button type1">
+              <span class="btn-txt">saber más</span>
+            </button>
+          </div>
+        </div>
+        <div class="mainp-foto">
+          <img src="img/Rent-a-dream-logo-only.png" alt="" width="100%">
+        </div>
+        <div class="mainp-ratings">
+          <div class="card">
+            <div class="stars">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                class="star">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                </path>
+              </svg>
 
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                                class="star">
-                                <path
-                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
-                                </path>
-                            </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                class="star">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                </path>
+              </svg>
 
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                                class="star">
-                                <path
-                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
-                                </path>
-                            </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                class="star">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                </path>
+              </svg>
 
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                                class="star">
-                                <path
-                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
-                                </path>
-                            </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                class="star">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                </path>
+              </svg>
 
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                                class="star">
-                                <path
-                                    d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
-                                </path>
-                            </svg>
-                        </div>
-
-                        <div class="infos">
-                            <p class="date-time">
-                                
-                            </p>
-                            <p class="description">
-                                "Alquilé a un novio para una boda a la que no quería ir sola, ¡y fue una experiencia increíble! Estaba nerviosa al principio, pero desde que nos conocimos, Javier fue muy profesional y divertido. Me hizo sentir cómoda, y hasta mis amigas pensaron que éramos pareja de verdad. Además, me ayudó a esquivar las preguntas incómodas de mis tías sobre por qué sigo soltera. ¡Definitivamente lo haría de nuevo!"
-                            </p>
-                        </div>
-
-                        <div class="author">
-                            — Maria
-                        </div>
-                    </div>
-                    <br>
-                </div>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                class="star">
+                <path
+                  d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z">
+                </path>
+              </svg>
             </div>
-            <div class="container-grid">
-                <div class="item-grid1"></div>
-                <div class="item-grid2"></div>
-                <div class="item-grid3"></div>
-                <div class="item-grid4"></div>
+
+            <div class="infos">
+              <p class="date-time">
+
+              </p>
+              <p class="description">
+                "Alquilé a un novio para una boda a la que no quería ir sola, ¡y fue una experiencia increíble! Estaba nerviosa al principio, pero desde que nos conocimos, Javier fue muy profesional y divertido. Me hizo sentir cómoda, y hasta mis amigas pensaron que éramos pareja de verdad. Además, me ayudó a esquivar las preguntas incómodas de mis tías sobre por qué sigo soltera. ¡Definitivamente lo haría de nuevo!"
+              </p>
             </div>
-        </header>
-    </div>
-    <div class="fondo2">
-        
-    </div>
+
+            <div class="author">
+              — Maria
+            </div>
+          </div>
+          <br>
+        </div>
+      </div>
+      <div class="container-grid">
+        <div class="item-grid1"></div>
+        <div class="item-grid2"></div>
+        <div class="item-grid3"></div>
+        <div class="item-grid4"></div>
+      </div>
+    </header>
+  </div>
+  <div class="fondo2">
+
+  </div>
 </body>
 
 </html>

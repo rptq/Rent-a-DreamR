@@ -23,4 +23,13 @@
     function printUserControllerError(): void{
         echo($_SESSION['Error']);
     }
+
+    function printUserName(): void{
+        $resultPrintUsername = (isset($_SESSION['logged']))?$_SESSION['username']:null;
+        echo $resultPrintUsername;
+    }
+    function printRol(): void{
+        $resultPrintRol = (isset($_SESSION['logged']))?$_SESSION['rol']:null;
+        echo $resultPrintRol;
+    }
 ?>
