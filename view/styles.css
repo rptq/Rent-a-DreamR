@@ -783,6 +783,10 @@ a:hover {
         min-height: 500px;
     }
 
+    .logo-img {
+        display: none;
+    }
+
     .mainp {
         flex-direction: column;
         padding: 0;
@@ -816,15 +820,13 @@ a:hover {
         flex-direction: column;
     
     }
-    .display-nav2-mobile{
-        display: contents;
-    }
+
 
     .display-nav2-mobile a{
         font-size: 0.8rem;
     }
     .display-nav2{
-        display: none;
+        font-size: 15px;
     }
     .filters{
         display: flex;
