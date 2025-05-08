@@ -1,3 +1,4 @@
+
 body {
     background-color: #FFB6F3;
     margin: 0;
@@ -788,17 +789,22 @@ a:hover {
     }
 
     .mainp {
+        margin-top: 30px    ;
         flex-direction: column;
-        padding: 0;
-        margin: 0;
+        margin-left: -30px;
+        padding: auto;
         text-align: center;
+        width: 115%;
     }
-
+    .mainp-foto {
+        width: 60%;
+        height: 30%;
+        margin-right: 40px;
+    }
     .mainp-slogan {
         text-align: center;
         width: 70%;
     }
-
     .mainp-slogan-txt {
         text-align: justify;
     }
@@ -809,6 +815,7 @@ a:hover {
 
     .mainp-ratings {
         display: flex;
+        margin-right: 6%;
     }
 
     #filters-display{
@@ -826,7 +833,7 @@ a:hover {
         font-size: 0.8rem;
     }
     .display-nav2{
-        font-size: 15px;
+        font-size: 10px;
     }
     .filters{
         display: flex;
@@ -836,6 +843,11 @@ a:hover {
         margin-left: 2rem;
         margin-right: 2rem;
         flex-direction: column;
+    }
+    .container-grid {
+        width: 80%;
+        height: 300px;
+        margin-left: 11%;
     }
     
 }

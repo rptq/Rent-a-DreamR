@@ -28,7 +28,7 @@
     <div>
         <nav>
             <div id="nav1">
-                <a href=""><img src="img/Rent-a-dream-logo-only.png" width="110rem" alt=""></a>
+                <a class="logo-img" href=""><img src="img/Rent-a-dream-logo-only.png" width="110rem" alt=""></a>
             </div>
             <div id="nav2" class="display-nav2">
                 <a href="index.php">HOME</a>
@@ -117,7 +117,7 @@
                     </div>
                   </div>
                   
-                <a href="../view/login.html">
+                <a href="../view/login.html"> 
                     <button class="Btn">
                         <div class="sign"><svg viewBox="0 0 512 512">
                                 <path
