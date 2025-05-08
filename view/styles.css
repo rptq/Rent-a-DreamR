@@ -984,7 +984,7 @@ a:hover {
     }
 
     .display-nav2-mobile {
-        display: contents;
+        display: none;
     }
 
     .display-nav2-mobile a {
