@@ -212,17 +212,68 @@ if (!isset($_SESSION["activeUser"])) {
           <br>
         </div>
       </div>
-      <div class="container-grid">
-        <div class="item-grid1"></div>
-        <div class="item-grid2"></div>
-        <div class="item-grid3"></div>
-        <div class="item-grid4"></div>
-      </div>
+
     </header>
+    <div class="carrousel-body">
+      <div class="carrousel-container">
+        <div>
+          <div class="carrousel-content">
+            <h2>Jane Doe</h2>
+            <span>UI & UX Designer</span>
+          </div>
+        </div>
+        <div>
+          <div class="carrousel-content">
+            <h2>Alex Smith</h2>
+            <span>CEO Expert</span>
+          </div>
+        </div>
+        <div>
+          <div class="carrousel-content">
+            <h2>Emily New</h2>
+            <span>Web Designer</span>
+          </div>
+        </div>
+        <div>
+          <div class="carrousel-content">
+            <h2>Lisa Boley</h2>
+            <span>Marketing Coordinator</span>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="fondo2">
+  <div class="carrousel-mobile-body">
+    <div class="carrousel-mobile-container">
+      <div>
+        <div class="carrousel-mobile-content">
+          <h2>Jane Doe</h2>
+          <span>UI & UX Designer</span>
+        </div>
+      </div>
+      <div>
+        <div class="carrousel-mobile-content">
+          <h2>Alex Smith</h2>
+          <span>CEO Expert</span>
+        </div>
+      </div>
+      <div>
+        <div class="carrousel-mobile-content">
+          <h2>Emily New</h2>
+          <span>Web Designer</span>
+        </div>
+      </div>
+      <div>
+        <div class="carrousel-mobile-content">
+          <h2>Lisa Boley</h2>
+          <span>Marketing Coordinator</span>
+        </div>
+      </div>
+    </div>
+
 
   </div>
+
 </body>
 
 </html>
