@@ -206,10 +206,12 @@ a:hover {
 }
 
 .mainp-slogan {
-    width: 30%;
+    width: 20%;
 }
 
-.mainp-foto {}
+.mainp-foto {
+    padding-right: 0;
+}
 
 .mainp-ratings {
     display: flex;
@@ -743,7 +745,7 @@ a:hover {
     gap: 10px;
 
     >div {
-        flex: 0 0 120px;
+        flex: 0 0 200px;
         border-radius: 0.5rem;
         transition: 0.5s ease-in-out;
         cursor: pointer;
@@ -849,6 +851,8 @@ a:hover {
         background: url("https://images.pexels.com/photos/247322/pexels-photo-247322.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260") no-repeat center / cover;
     }
 
+    
+
     .carrousel-mobile-content {
         font-size: 1.5rem;
         color: #fff;
@@ -889,16 +893,11 @@ a:hover {
 
 /* container login fin */
 
-@media (max-width: 1280px) {
-    .mainp {
-        padding-left: 5rem;
+@media (max-width: 1600px) {
+    .mainp-slogan {
+        width: 40%;
     }
-
-    .mainp-foto {
-        padding-right: 0;
-    }
-
-    .mainp-ratings {
+    .mainp-ratings{
         display: none;
     }
 }
@@ -926,6 +925,14 @@ a:hover {
 
     .mainp-ratings {
         display: flex;
+    }
+
+    .carrousel-mobile-container {
+        display: flex;
+    }
+
+    .carrousel-container {
+        display: none;
     }
 }
 
@@ -1007,13 +1014,5 @@ a:hover {
         width: 80%;
         height: 300px;
         margin-left: 11%;
-    }
-
-    .carrousel-mobile-container {
-        display: flex;
-    }
-
-    .carrousel-container {
-        display: none;
     }
 }

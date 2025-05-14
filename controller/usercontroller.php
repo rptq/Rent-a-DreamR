@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-// check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user = new UserController();
 
@@ -19,125 +18,136 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 class UserController {
-    private $conn;
+    private $pdo;
 
     public function __construct() {
-        // database conexión
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $dbname = "rentadream";
-
-        // crear la conexión
-        $this->conn = new mysqli($servername, $username, $password, $dbname);
-
-        if($this->conn->connect_error) {
-            die("Connection failed: " . $this->conn->connect_error);
+        try {
+            $host = 'localhost';
+            $dbname = 'rentadream';
+            $username = 'root';
+            $password = '';
+            
+            $this->pdo = new PDO(
+                "mysql:host=$host;dbname=$dbname;charset=utf8",
+                $username,
+                $password
+            );
+            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+        } catch(PDOException $e) {
+            die("Error de conexión: " . $e->getMessage());
         }
-        // echo "Connected successfully"; // Puedes comentar esto si no quieres mostrarlo
     }
 
     public function login(): void {
-    
-        // Obtener datos del formulario
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-        
-    
-        // Preparar y ejecutar consulta
-        $stmt = $this->conn->prepare("SELECT name, password FROM users WHERE email = ? AND password = ?");
-        $stmt->bind_param("ss", $email, $password);
-        $stmt->execute();
-        $result = $stmt->get_result();
-    
-        // Verificar si existe el usuario
-        if ($row = $result->fetch_assoc()) {
-            // Verificar contraseña
-            if ($password == $row['password']) {
-                // Autenticación exitosa
+        $email = $_POST['email'] ?? '';
+        $password = $_POST['password'] ?? '';
+
+        try {
+            $stmt = $this->pdo->prepare("
+                SELECT name, email, password, rol, dni 
+                FROM users 
+                WHERE email = :email
+            ");
+            
+            $stmt->bindParam(':email', $email);
+            $stmt->execute();
+            
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($user && password_verify($password, $user['password'])) {
                 $_SESSION['logged'] = true;
-                $_SESSION['username'] = $row['name'];
-                $_SESSION['email'] = $row['email'];
-                $_SESSION['password'] = $row['password'];
-                $_SESSION['rol'] = $row['rol'];
-                $_SESSION['dni'] = $row['dni'];
-    
-                // Redirigir
+                $_SESSION['username'] = $user['name'];
+                $_SESSION['email'] = $user['email'];
+                $_SESSION['rol'] = $user['rol'];
+                $_SESSION['dni'] = $user['dni'];
+
                 header("Location: ../view/index.php");
                 exit();
             }
+
+            $_SESSION['logged'] = false;
+            $_SESSION['error'] = "Credenciales inválidas";
+            header("Location: ../view/login.html");
+            exit();
+
+        } catch(PDOException $e) {
+            error_log("Error de login: " . $e->getMessage());
+            $_SESSION['error'] = "Error en el sistema";
+            header("Location: ../view/login.html");
+            exit();
         }
-    
-        // Si falla
-        $_SESSION['logged'] = false;
-        $_SESSION['error'] = "Nombre de usuario o contraseña inválidos.";
-        echo $_SESSION['error'];
-        echo $password;
-        // header("Location: ../view/login.html");
-        exit();
     }
 
     public function register(): void {
-        // Obtener datos del formulario
-        $email = $_POST['email'];
-        $username = $_POST['name'];
-        $password = $_POST['password'];
-        $rol = $_POST["rol"];
-        $dni = $_POST["dni"];
+        $email = $_POST['email'] ?? '';
+        $username = $_POST['name'] ?? '';
+        $password = $_POST['password'] ?? '';
+        $rol = $_POST["rol"] ?? 'user';
+        $dni = $_POST["dni"] ?? '';
 
-        // Validar que los campos no esten vacíos
+        // Validaciones
         if (empty($username) || empty($email) || empty($password)) {
-            $_SESSION['error'] = "Por favor, complete todos los campos.";
+            $_SESSION['error'] = "Todos los campos son requeridos";
             header("Location: ../view/sign_up.html");
             exit();
         }
-    
-        // Validar formato de email
+
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $_SESSION['error'] = "Formato de correo inválido.";
+            $_SESSION['error'] = "Email inválido";
             header("Location: ../view/sign_up.html");
             exit();
         }
-    
-        // Prepararamos la consulta para insertar un nuevo registro
-        $stmt = $this->conn->prepare("INSERT INTO users (name, email, password, rol, dni) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param("sssss", $username, $email, $password, $rol, $dni);
-    
+
         try {
-            if ($stmt->execute()) {
-                // Registro se inserto
-                $_SESSION['logged'] = true;
-                $_SESSION['username'] = $username;
-                $_SESSION['email'] = $email;
-                $_SESSION['rol'] = $rol;
-                $_SESSION['dni'] = $dni;
-    
-                $this->conn->close();
-                header("Location: ../view/index.php");
-                exit();
-            } else {
-                // Error al registrar
-                $_SESSION['error'] = "No se pudo completar el registro.";
-                $this->conn->close();
+            // Verificar si el email ya existe
+            $stmt = $this->pdo->prepare("SELECT id FROM users WHERE email = :email");
+            $stmt->bindParam(':email', $email);
+            $stmt->execute();
+            
+            if ($stmt->fetch()) {
+                $_SESSION['error'] = "El email ya está registrado";
                 header("Location: ../view/sign_up.html");
                 exit();
             }
-        } catch (Exception $e) {
-            $_SESSION['error'] = "Error: " . $e->getMessage();
-            $this->conn->close();
+
+            // Hash de contraseña
+            $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+
+            $stmt = $this->pdo->prepare("
+                INSERT INTO users 
+                (name, email, password, rol, dni) 
+                VALUES (:name, :email, :password, :rol, :dni)
+            ");
+            
+            $stmt->execute([
+                ':name' => $username,
+                ':email' => $email,
+                ':password' => $passwordHash,
+                ':rol' => $rol,
+                ':dni' => $dni
+            ]);
+
+            $_SESSION['logged'] = true;
+            $_SESSION['username'] = $username;
+            $_SESSION['email'] = $email;
+            $_SESSION['rol'] = $rol;
+            $_SESSION['dni'] = $dni;
+
+            header("Location: ../view/index.php");
+            exit();
+
+        } catch(PDOException $e) {
+            error_log("Error de registro: " . $e->getMessage());
+            $_SESSION['error'] = "Error en el registro";
             header("Location: ../view/sign_up.html");
             exit();
-        } finally {
-            //Cerramos conexion
-            $this->conn->close();
         }
     }
 
     public function logout(): void {
-        session_start();
-        session_unset();
+        $_SESSION = [];
         session_destroy();
-
         header("Location: ../view/login.html");
         exit();
     }
