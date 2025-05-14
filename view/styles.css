@@ -731,10 +731,12 @@ a:hover {
     background-color: #fff;
     font-weight: 600;
 }
+
 .carrousel-body {
     display: grid;
     place-items: center;
 }
+
 .carrousel-container {
     width: 100%;
     padding-top: 2rem;
@@ -770,12 +772,11 @@ a:hover {
         }
 
         .carrousel-content {
-            font-size: 0.5rem;
+            font-size: 1rem;
             color: #fff;
             display: flex;
-            align-items: center;
-            padding: 15px;
-            margin-bottom: 3rem;
+            align-items: left;
+            padding: 20px;
             opacity: 0;
             flex-direction: column;
             height: 100%;
@@ -787,11 +788,14 @@ a:hover {
             transform: translateY(100%);
             transition: opacity 0.5s ease-in-out, transform 0.5s 0.2s;
             visibility: hidden;
+            margin-top: 0;
+            padding-top: 0;
 
             span {
                 display: block;
-                margin-top: 5px;
-                font-size: 1.2rem;
+                padding: 0;
+                margin-bottom: 20px;
+                font-size: 2rem;
             }
         }
 
@@ -809,86 +813,6 @@ a:hover {
     }
 }
 
-.carrousel-mobile-body {
-    display: grid;
-    place-items: center;
-}
-
-.carrousel-mobile-container {
-    width: 300px;
-    height: 100%;
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-}
-
-.carrousel-mobile-container>div {
-    height: 120px;
-    width: 100%;
-    flex-shrink: 0;
-    border-radius: 0.5rem;
-    transition: 0.5s ease-in-out;
-    cursor: pointer;
-    box-shadow: 1px 5px 15px #1e0e3e;
-    position: relative;
-    overflow: hidden;
-
-    &:nth-of-type(1) {
-        background: url("https://images.pexels.com/photos/1845208/pexels-photo-1845208.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260") no-repeat center / cover;
-    }
-
-    &:nth-of-type(2) {
-        background: url("https://images.pexels.com/photos/36469/woman-person-flowers-wreaths.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260") no-repeat center / cover;
-    }
-
-    &:nth-of-type(3) {
-        background: url("https://images.pexels.com/photos/1468379/pexels-photo-1468379.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260") no-repeat center / cover;
-    }
-
-    &:nth-of-type(4) {
-        background: url("https://images.pexels.com/photos/247322/pexels-photo-247322.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260") no-repeat center / cover;
-    }
-
-    
-
-    .carrousel-mobile-content {
-        font-size: 1.5rem;
-        color: #fff;
-        display: flex;
-        align-items: center;
-        padding: 15px;
-        opacity: 0;
-        flex-direction: column;
-        height: 100%;
-        justify-content: flex-end;
-        background: linear-gradient(0deg,
-                rgba(2, 2, 46, 0.6755) 0%,
-                rgba(255, 255, 255, 0) 100%);
-        transform: translateY(100%);
-        transition: opacity 0.5s ease-in-out, transform 0.5s 0.2s;
-        visibility: hidden;
-
-        span {
-            display: block;
-            margin-top: 5px;
-            font-size: 1.2rem;
-        }
-    }
-
-    &:hover {
-        height: 250px;
-        box-shadow: 1px 3px 15px #7645d8;
-        transform: translateX(30px);
-    }
-
-    &:hover .carrousel-mobile-content {
-        opacity: 1;
-        transform: translateY(0%);
-        visibility: visible;
-    }
-}
 
 
 /* container login fin */
@@ -927,13 +851,35 @@ a:hover {
         display: flex;
     }
 
-    .carrousel-mobile-container {
-        display: flex;
+    .carrousel-container {
+        flex-direction: column;
+        height: auto;
+        width: 300px;
+        align-items: center;
+        margin-bottom: 5rem;
     }
 
-    .carrousel-container {
-        display: none;
+    .carrousel-container > div {
+        width: 100%;
+        height: 120px;
     }
+
+    .carrousel-container > div:hover {
+        height: 250px;
+        transform: translateX(30px);
+    }
+
+    .carrousel-container > div .carrousel-content {
+        align-items: center;
+        padding: 15px;
+        
+        span {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+    }
+
+    
 }
 
 @media (max-width: 750px) {
@@ -960,7 +906,6 @@ a:hover {
     .mainp-foto {
         width: 60%;
         height: 30%;
-        margin-right: 40px;
     }
     .mainp-slogan {
         text-align: center;
@@ -976,7 +921,8 @@ a:hover {
 
     .mainp-ratings {
         display: flex;
-        margin-right: 6%;
+        margin-right: 5rem;
+        margin-left: 5rem;
     }
 
     #filters-display {
