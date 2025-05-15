@@ -15,6 +15,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["logout"])) {
         $user->logout();
     }
+
+    if (isset($_POST["updatePassword"])) {
+    $user->updatePassword();
+    }
+    
+    if (isset($_POST["deleteAccount"])) {
+        $user->deleteAccount();
+    }
 }
 
 class UserController

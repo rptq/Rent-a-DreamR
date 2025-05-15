@@ -111,7 +111,7 @@ if (!isset($_SESSION["activeUser"])) {
                   
                       <div class="usuario-popup-main">
                         <ul class="usuario-list-box">
-                          <li class="usuario-button usuario-item">user config</li>
+                          <li class="usuario-button usuario-item"><a href="userconfig.html">user config</a></li>
                           <form action="../controller/usercontroller.php" class="form" method="POST">
                             <li class="usuario-button usuario-item"><input type="submit" name="logout" value="logout" style="border: none;background: none;"></li>
                           </form>
