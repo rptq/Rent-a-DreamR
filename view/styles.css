@@ -733,6 +733,73 @@ a:hover {
     display: grid;
     place-items: center;
 }
+.profile-container {
+      max-width: 600px;
+      margin: 4rem auto;
+      padding: 2rem;
+      background: #fff;
+      border-radius: 1rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      font-family: 'Montserrat', sans-serif;
+}
+
+.profile-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.profile-header h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.profile-info {
+    margin-bottom: 2rem;
+}
+
+.profile-info p {
+    margin: 0.5rem 0;
+}
+
+.btn-logout {
+    background: #e74c3c;
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.password-form label {
+    display: block;
+    margin: 1rem 0 0.25rem;
+    font-weight: bold;
+}
+
+.password-form input {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 0.4rem;
+    border: 1px solid #ccc;
+}
+
+.password-form button {
+    margin-top: 1rem;
+    background: #2980b9;
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.password-form button:hover,
+.btn-logout:hover {
+    opacity: 0.9;
+}
+    
+
 .carrousel-container {
     width: 100%;
     padding-top: 2rem;
@@ -887,7 +954,7 @@ a:hover {
 }
 
 
-/* container login fin */
+
 
 @media (max-width: 1280px) {
     .mainp {
