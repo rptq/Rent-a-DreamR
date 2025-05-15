@@ -1,3 +1,10 @@
+<?php
+require '../controller/UserController.php';
+$ctrl = new UserController;
+$workers = null;
+$workers = $ctrl->listWorkersMan();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -169,96 +176,37 @@
 
         <!-- Perfiles -->
         <div class="catalog">
-            <!-- Perfil 1 -->
-            <div class="profile-card">
-                <div class="profile-image" style="background-image: url('img/workers/man/miguel-sigma.png');"></div>
-                <div class="profile-info">
-                    <a href="trabajadores/chicos-html/miguel.html" style="margin: 0; padding: 0;">
-                        <h3 class="profile-name">Miguel</h3>
-                    </a>
-                    <div class="profile-rating">
-                        <div class="stars">★★★★★</div>
-                        <span class="rating-value">4.9</span>
+            <!-- Perfiles php -->
+            <?php foreach ($workers as $w): ?>
+                <div class="profile-card">
+                    <div class="profile-image"
+                        style="background-image: url('img/workers/man/<?= htmlspecialchars($w['idWorker']) ?>.png');">
                     </div>
-                    <p class="profile-description">Caballero y educado, perfecto para eventos formales y cenas de
-                        negocios.</p>
-                    <p class="profile-price">Desde 120€/hora</p>
-                </div>
-            </div>
-
-            <!-- Perfil 2 -->
-            <div class="profile-card">
-                <div class="profile-image" style="background-image: url('img/workers/man/elias.png');"></div>
-                <div class="profile-info">
-                    <h3 class="profile-name">Elias</h3>
-                    <div class="profile-rating">
-                        <div class="stars">★★★★☆</div>
-                        <span class="rating-value">4.7</span>
+                    <div class="profile-info">
+                        <a href="trabajadores/perfil.php?id=<?= $w['idWorker'] ?>">
+                            <h3 class="profile-name"><?= htmlspecialchars($w['name']) ?></h3>
+                        </a>
+                        <div class="profile-rating">
+                            <div class="stars">
+                                <?php
+                                // Muestra cinco estrellas rellenas y vacías según el rating
+                                $int = floor($w['rating']);
+                                for ($i = 1; $i <= 5; $i++) {
+                                    echo $i <= $int ? '★' : '☆';
+                                }
+                                ?>
+                            </div>
+                            <span class="rating-value"><?= number_format($w['rating'], 1) ?></span>
+                        </div>
+                        <p class="profile-description">
+                            <?= nl2br(htmlspecialchars($w['description'])) ?>
+                        </p>
+                        <p class="profile-price">
+                            Desde <?= number_format($w['price'], 0, ',', '.') ?>€/hora
+                        </p>
                     </div>
-                    <p class="profile-description">Deportista y aventurero, ideal para actividades al aire libre.
-                    </p>
-                    <p class="profile-price">Desde 100€/hora</p>
                 </div>
-            </div>
-
-            <!-- Perfil 3 -->
-            <div class="profile-card">
-                <div class="profile-image" style="background-image: url('img/workers/man/mistetiousgay.png');">
-                </div>
-                <div class="profile-info">
-                    <h3 class="profile-name">Marcos</h3>
-                    <div class="profile-rating">
-                        <div class="stars">★★★★★</div>
-                        <span class="rating-value">5.0</span>
-                    </div>
-                    <p class="profile-description">Encantador y divertido, especializado en acompañamiento para
-                        bodas.</p>
-                    <p class="profile-price">Desde 150€/hora</p>
-                </div>
-            </div>
-
-            <!-- Perfil 4 -->
-            <div class="profile-card">
-                <div class="profile-image" style="background-image: url('img/workers/man/jorge.png');"></div>
-                <div class="profile-info">
-                    <h3 class="profile-name">Javier</h3>
-                    <div class="profile-rating">
-                        <div class="stars">★★★★☆</div>
-                        <span class="rating-value">4.5</span>
-                    </div>
-                    <p class="profile-description">Intelectual y conversador, perfecto para eventos culturales.</p>
-                    <p class="profile-price">Desde 110€/hora</p>
-                </div>
-            </div>
-
-            <!-- Perfil 5 -->
-            <div class="profile-card">
-                <div class="profile-image" style="background-image: url('img/workers/man/fumao.png');"></div>
-                <div class="profile-info">
-                    <h3 class="profile-name">Robert</h3>
-                    <div class="profile-rating">
-                        <div class="stars">★★★★★</div>
-                        <span class="rating-value">4.8</span>
-                    </div>
-                    <p class="profile-description">Una experiencia inolvidable.</p>
-                    <p class="profile-price">Desde 180€/hora</p>
-                </div>
-            </div>
-
-            <!-- Perfil 6 -->
-            <div class="profile-card">
-                <div class="profile-image" style="background-image: url('img/workers/man/ashton-hall.png');"></div>
-                <div class="profile-info">
-                    <h3 class="profile-name">Carlos</h3>
-                    <div class="profile-rating">
-                        <div class="stars">★★★★☆</div>
-                        <span class="rating-value">4.6</span>
-                    </div>
-                    <p class="profile-description">Amable y atento, ideal para primeras citas o encuentros casuales.
-                    </p>
-                    <p class="profile-price">Desde 90€/hora</p>
-                </div>
-            </div>
+            <?php endforeach; ?>
         </div>
     </div>
     </div>

@@ -17,16 +17,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-class UserController {
+class UserController
+{
     private $pdo;
 
-    public function __construct() {
+    public function __construct()
+    {
         try {
             $host = 'localhost';
             $dbname = 'rentadream';
             $username = 'root';
             $password = '';
-            
+
             $this->pdo = new PDO(
                 "mysql:host=$host;dbname=$dbname;charset=utf8",
                 $username,
@@ -34,12 +36,33 @@ class UserController {
             );
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-        } catch(PDOException $e) {
+        } catch (PDOException $e) {
             die("Error de conexión: " . $e->getMessage());
         }
     }
 
-    public function login(): void {
+    public function listWorkersGirls()
+    {
+        // 2) Saca todos los registros de workergirl
+        $stmt = $this->pdo->query("SELECT idWorker, name, age, height, description, rating, price FROM workergirl");
+        return $stmt->fetchAll();
+    }
+    public function listWorkersMan()
+    {
+        // 2) Saca todos los registros de workergirl
+        $stmt = $this->pdo->query("SELECT idWorker, name, age, height, description, rating, price FROM workerman");
+        return $stmt->fetchAll();
+    }
+
+    public function getWorkerById($id)
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM workerman WHERE idWorker = ?");
+        $stmt->execute([$id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function login(): void
+    {
         $email = $_POST['email'] ?? '';
         $password = $_POST['password'] ?? '';
 
@@ -49,10 +72,10 @@ class UserController {
                 FROM users 
                 WHERE email = :email
             ");
-            
+
             $stmt->bindParam(':email', $email);
             $stmt->execute();
-            
+
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if ($user && password_verify($password, $user['password'])) {
@@ -70,8 +93,7 @@ class UserController {
             $_SESSION['error'] = "Credenciales inválidas";
             header("Location: ../view/login.html");
             exit();
-
-        } catch(PDOException $e) {
+        } catch (PDOException $e) {
             error_log("Error de login: " . $e->getMessage());
             $_SESSION['error'] = "Error en el sistema";
             header("Location: ../view/login.html");
@@ -79,7 +101,8 @@ class UserController {
         }
     }
 
-    public function register(): void {
+    public function register(): void
+    {
         $email = $_POST['email'] ?? '';
         $username = $_POST['name'] ?? '';
         $password = $_POST['password'] ?? '';
@@ -104,7 +127,7 @@ class UserController {
             $stmt = $this->pdo->prepare("SELECT id FROM users WHERE email = :email");
             $stmt->bindParam(':email', $email);
             $stmt->execute();
-            
+
             if ($stmt->fetch()) {
                 $_SESSION['error'] = "El email ya está registrado";
                 header("Location: ../view/sign_up.html");
@@ -119,7 +142,7 @@ class UserController {
                 (name, email, password, rol, dni) 
                 VALUES (:name, :email, :password, :rol, :dni)
             ");
-            
+
             $stmt->execute([
                 ':name' => $username,
                 ':email' => $email,
@@ -136,8 +159,7 @@ class UserController {
 
             header("Location: ../view/index.php");
             exit();
-
-        } catch(PDOException $e) {
+        } catch (PDOException $e) {
             error_log("Error de registro: " . $e->getMessage());
             $_SESSION['error'] = "Error en el registro";
             header("Location: ../view/sign_up.html");
@@ -145,7 +167,8 @@ class UserController {
         }
     }
 
-    public function logout(): void {
+    public function logout(): void
+    {
         $_SESSION = [];
         session_destroy();
         header("Location: ../view/login.html");
