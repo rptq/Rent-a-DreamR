@@ -57,14 +57,32 @@ class UserController
     }
     public function listWorkersMan()
     {
-        // 2) Saca todos los registros de workergirl
+        // 2) Saca todos los registros de workerman
         $stmt = $this->pdo->query("SELECT idWorker, name, age, height, description, rating, price FROM workerman");
+        return $stmt->fetchAll();
+    }
+    public function listWorkersExotic()
+    {
+        // 2) Saca todos los registros de workerexotic
+        $stmt = $this->pdo->query("SELECT idWorker, name, age, height, description, rating, price FROM workerexotic");
         return $stmt->fetchAll();
     }
 
     public function getWorkerById($id)
     {
         $stmt = $this->pdo->prepare("SELECT * FROM workerman WHERE idWorker = ?");
+        $stmt->execute([$id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    public function getWorkerByIdGirl($id)
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM workergirl WHERE idWorker = ?");
+        $stmt->execute([$id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+    public function getWorkerByIdExotic($id)
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM workerexotic WHERE idWorker = ?");
         $stmt->execute([$id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
@@ -182,4 +200,12 @@ class UserController
         header("Location: ../view/login.html");
         exit();
     }
+
+    public function updatePassword(): void {
+    
+    }
+
+    public function deleteAccount(): void {
+    
+    } 
 }

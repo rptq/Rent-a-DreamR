@@ -1,10 +1,18 @@
+<?php
+require '../controller/UserController.php';
+$ctrl = new UserController;
+$workers = null;
+$workers = $ctrl->listWorkersExotic();
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rent a Dream - Chicas</title>
+    <title>Rent a Dream - Exotico</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,14 +29,14 @@
             <div id="nav2">
                 <a href="index.php">HOME</a>
                 <span>|</span>
-                <a href="chicas">CHICAS</a>
+                <a href="chicas.php">CHICAS</a>
                 <span>|</span>
-                <a href="chicos">CHICOS</a>
+                <a href="chicos.php">CHICOS</a>
                 <span>|</span>
-                <a href="exotico">EXOTICO</a>
+                <a href="exotico.php">EXOTICO</a>
             </div>
             <div>
-                <a href="login.html">
+                <a href="php/login.php">
                     <button class="Btn">
                         <div class="sign"><svg viewBox="0 0 512 512">
                                 <path
@@ -41,26 +49,11 @@
                 </a>
             </div>
         </nav>
-        <nav>
-            <div> 
-            </div>
-            <div id="nav2" class="display-nav2-mobile">
-                <a href="index.php">HOME</a>
-                <span>|</span>
-                <a href="chicas">CHICAS</a>
-                <span>|</span>
-                <a href="chicos">CHICOS</a>
-                <span>|</span>
-                <a href="exotico">EXOTICO</a>
-            </div>
-            <div>
-            </div>
-        </nav>
         <header>
             <div class="mainp">
                 <div class="mainp-slogan">
-                    <h2 class="mainp-slogan-h2">CHICAS</h2>
-                    <p class="mainp-slogan-txt">Compañeras de confianza y de calidad</p>
+                    <h2 class="mainp-slogan-h2">Exotico</h2>
+                    <p class="mainp-slogan-txt">Compañeros de confianza y de calidad</p>
                 </div>
             </div>
         </header>
@@ -71,6 +64,7 @@
                     <h3>Edad</h3>
                     <div class="filter-option">
                         <input type="checkbox" id="age-18-25" checked>
+
                         <label for="age-18-25">18-25 años</label>
                     </div>
                     <div class="filter-option">
@@ -111,10 +105,13 @@
                     </div>
                 </div>
                 <button class="filter-button">Apply</button>
+
+
             </div>
+
         </div>
 
-        <!-- Catálogo de chicas -->
+        <!-- Catálogo de chicos -->
         <div class="catalog-container">
             <!-- Filtros -->
             <div id="filters-display" class="filters">
@@ -163,111 +160,42 @@
                 </div>
 
                 <button class="filter-button">Apply</button>
-
             </div>
 
             <!-- Perfiles -->
-            <div class="catalog">
-                <!-- Perfil 1 -->
+        <div class="catalog">
+            <!-- Perfiles php -->
+            <?php foreach ($workers as $w): ?>
                 <div class="profile-card">
                     <div class="profile-image"
-                        style="background-image: url('img/workers/girl/samantha.png');">
+                        style="background-image: url('img/workers/exotic/<?= htmlspecialchars($w['idWorker']) ?>.png');">
                     </div>
                     <div class="profile-info">
-                        <h3 class="profile-name">Samantha</h3>
+                        <a href="trabajadores/perfil-exotic.php?id=<?= $w['idWorker'] ?>">
+                            <h3 class="profile-name"><?= htmlspecialchars($w['name']) ?></h3>
+                        </a>
                         <div class="profile-rating">
-                            <div class="stars">★★★★★</div>
-                            <span class="rating-value">4.9</span>
+                            <div class="stars">
+                                <?php
+                                // Muestra cinco estrellas rellenas y vacías según el rating
+                                $int = floor($w['rating']);
+                                for ($i = 1; $i <= 5; $i++) {
+                                    echo $i <= $int ? '★' : '☆';
+                                }
+                                ?>
+                            </div>
+                            <span class="rating-value"><?= number_format($w['rating'], 1) ?></span>
                         </div>
-                        <p class="profile-description">Elegancia y sofisticación, perfecta para eventos de gala y cenas
-                            importantes.</p>
-                        <p class="profile-price">Desde 120€/hora</p>
+                        <p class="profile-description">
+                            <?= nl2br(htmlspecialchars($w['description'])) ?>
+                        </p>
+                        <p class="profile-price">
+                            Desde <?= number_format($w['price'], 0, ',', '.') ?>€/hora
+                        </p>
                     </div>
                 </div>
-
-                <!-- Perfil 2 -->
-                <div class="profile-card">
-                    <div class="profile-image"
-                        style="background-image: url('img/workers/girl/Valentina.png');">
-                    </div>
-                    <div class="profile-info">
-                        <h3 class="profile-name">Valentina</h3>
-                        <div class="profile-rating">
-                            <div class="stars">★★★★☆</div>
-                            <span class="rating-value">4.7</span>
-                        </div>
-                        <p class="profile-description">Deportista y enérgica, ideal para actividades al aire libre y
-                            aventuras.</p>
-                        <p class="profile-price">Desde 100€/hora</p>
-                    </div>
-                </div>
-
-                <!-- Perfil 3 -->
-                <div class="profile-card">
-                    <div class="profile-image"
-                        style="background-image: url('img/workers/girl/Isabella.png');">
-                    </div>
-                    <div class="profile-info">
-                        <h3 class="profile-name">Isabella</h3>
-                        <div class="profile-rating">
-                            <div class="stars">★★★★★</div>
-                            <span class="rating-value">5.0</span>
-                        </div>
-                        <p class="profile-description">Encantadora y divertida, especializada en acompañamiento para
-                            bodas y eventos sociales.</p>
-                        <p class="profile-price">Desde 150€/hora</p>
-                    </div>
-                </div>
-
-                <!-- Perfil 4 -->
-                <div class="profile-card">
-                    <div class="profile-image"
-                        style="background-image: url(img/workers/girl/hawktwah.png);">
-                    </div>
-                    <div class="profile-info">
-                        <h3 class="profile-name">Hawk Tuah</h3>
-                        <div class="profile-rating">
-                            <div class="stars">★★★★☆</div>
-                            <span class="rating-value">4.5</span>
-                        </div>
-                        <p class="profile-description">Cultivada y conversadora, perfecta para eventos culturales y
-                            artísticos.</p>
-                        <p class="profile-price">Desde 110€/hora</p>
-                    </div>
-                </div>
-
-                <!-- Perfil 5 -->
-                <div class="profile-card">
-                    <div class="profile-image"
-                        style="background-image: url('img/workers/girl/emma.png');">
-                    </div>
-                    <div class="profile-info">
-                        <h3 class="profile-name">Emma</h3>
-                        <div class="profile-rating">
-                            <div class="stars">★★★★★</div>
-                            <span class="rating-value">4.8</span>
-                        </div>
-                        <p class="profile-description">Glamurosa y refinada, especializada en eventos de alta sociedad y
-                            fiestas exclusivas.</p>
-                        <p class="profile-price">Desde 180€/hora</p>
-                    </div>
-                </div>
-
-                <!-- Perfil 6 -->
-                <div class="profile-card">
-                    <div class="profile-image" style="background-image: url('img/workers/girl/kira.png');"></div>
-                    <div class="profile-info">
-                        <h3 class="profile-name">Carlota</h3>
-                        <div class="profile-rating">
-                            <div class="stars">★★★★☆</div>
-                            <span class="rating-value">4.6</span>
-                        </div>
-                        <p class="profile-description">Dulce y atenta, ideal para citas románticas o encuentros
-                            casuales.</p>
-                        <p class="profile-price">Desde 90€/hora</p>
-                    </div>
-                </div>
-            </div>
+            <?php endforeach; ?>
+        </div>
         </div>
     </div>
 </body>

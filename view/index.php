@@ -34,11 +34,11 @@ if (!isset($_SESSION["activeUser"])) {
             <div id="nav2" class="display-nav2">
                 <a href="index.php">HOME</a>
                 <span>|</span>
-                <a href="chicas">CHICAS</a>
+                <a href="chicas.php">CHICAS</a>
                 <span>|</span>
-                <a href="chicos">CHICOS</a>
+                <a href="chicos.php">CHICOS</a>
                 <span>|</span>
-                <a href="exotico">EXOTICO</a>
+                <a href="exotico.php">EXOTICO</a>
             </div>
             <div style="display: flex;">
                 <div class="usuario-template">
