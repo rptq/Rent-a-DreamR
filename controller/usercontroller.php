@@ -613,7 +613,3 @@ class UserController
     }
     }   
 }
-    public function updatePassword(): void {}
-
-    public function deleteAccount(): void {}
-}
