@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once "../controller/functions.php";
+require_once "functions.php";
 if (!isset($_SESSION["activeUser"])) {
   $_SESSION["activeUser"] = [
     "email" => null,

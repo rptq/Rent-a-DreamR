@@ -1,5 +1,5 @@
 <?php
-require '../../../controller/UserController.php';
+require '../../../controller/usercontroller.php';
 $ctrl = new UserController();
 
 // Validar ID
