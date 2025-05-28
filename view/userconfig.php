@@ -188,50 +188,49 @@ if (!isset($_SESSION["activeUser"])) {
       </form>
     </section>
 
+<section class="password-form-section">
+  <h2>Cambiar contraseña</h2>
+  
+  <?php if (isset($_GET['msg'])): ?>
+    <div style="padding: 1rem; border-radius: 6px; font-weight: bold;
+                background-color: <?= $_GET['msg'] === 'success' ? '#d4edda' : '#f8d7da' ?>;
+                color: <?= $_GET['msg'] === 'success' ? '#155724' : '#721c24' ?>;
+                border: 1px solid <?= $_GET['msg'] === 'success' ? '#c3e6cb' : '#f5c6cb' ?>;
+                margin-bottom: 1rem;">
+      <?php
+        switch ($_GET['msg']) {
+          case 'success':
+            echo "Contraseña actualizada con éxito.";
+            break;
+          case 'wrongcurrent':
+            echo "La contraseña actual es incorrecta.";
+            break;
+          case 'nomatch':
+            echo "Las nuevas contraseñas no coinciden.";
+            break;
+          case 'notfound':
+            echo "Usuario no encontrado.";
+            break;
+          case 'emptyfields':
+            echo "Todos los campos son obligatorios.";
+            break;
+          default:
+            echo "Ocurrió un error.";
+        }
+      ?>
+    </div>
+  <?php endif; ?>
 
-    <section class="password-form-section">
-      <h2>Cambiar contraseña</h2>
-      
-      <?php if (isset($_GET['msg'])): ?>
-        <div style="padding: 1rem; border-radius: 6px; font-weight: bold;
-                    background-color: <?= $_GET['msg'] === 'success' ? '#d4edda' : '#f8d7da' ?>;
-                    color: <?= $_GET['msg'] === 'success' ? '#155724' : '#721c24' ?>;
-                    border: 1px solid <?= $_GET['msg'] === 'success' ? '#c3e6cb' : '#f5c6cb' ?>;
-                    margin-bottom: 1rem;">
-          <?php
-            switch ($_GET['msg']) {
-              case 'success':
-                echo "Contraseña actualizada con éxito.";
-                break;
-              case 'wrongcurrent':
-                echo "La contraseña actual es incorrecta.";
-                break;
-              case 'nomatch':
-                echo "Las nuevas contraseñas no coinciden.";
-                break;
-              case 'notfound':
-                echo "Usuario no encontrado.";
-                break;
-              default:
-                echo "Ocurrió un error.";
-            }
-          ?>
-        </div>
-      <?php endif; ?>
+  <form class="password-form" action="../controller/usercontroller.php" method="POST">
+    <label for="actual">Contraseña actual</label>
+    <input type="password" id="actual" name="actual" required />
 
-      <form class="password-form" action="../controller/usercontroller.php" method="POST">
-        <label for="actual">Contraseña actual</label>
-        <input type="password" id="actual" name="actual" required />
+    <label for="nueva">Nueva contraseña</label>
+    <input type="password" id="nueva" name="nueva" required />
 
-        <label for="nueva">Nueva contraseña</label>
-        <input type="password" id="nueva" name="nueva" required />
+    <label for="confirmar">Confirmar nueva contraseña</label>
+    <input type="password" id="confirmar" name="confirmar" required />
 
-        <label for="confirmar">Confirmar nueva contraseña</label>
-        <input type="password" id="confirmar" name="confirmar" required />
-
-        <button type="submit" name="updatePassword">Cambiar contraseña</button>
-      </form>
-    </section>
-  </main>
-</body>
-</html>
+    <button type="submit" name="updatePassword">Cambiar contraseña</button>
+  </form>
+</section>

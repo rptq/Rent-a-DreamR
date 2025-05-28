@@ -216,52 +216,66 @@ class UserController
     }
 
 
-    public function updatePassword() {
-
+    public function updatePassword(): void
+{
+    // Verifica si el usuario está logueado
     if (!isset($_SESSION['email'])) {
-        header("Location: ../views/userconfig.php?msg=notfound");
+        header("Location: ../view/userconfig.php?msg=notfound");
         exit();
     }
-
-    require_once '../model/UserModel.php';
-    $userModel = new UserModel();
 
     $email = $_SESSION['email'];
     $currentPassword = $_POST['actual'] ?? '';
     $newPassword = $_POST['nueva'] ?? '';
     $confirmPassword = $_POST['confirmar'] ?? '';
 
-    // Obtener usuario desde la base de datos
-    $user = $userModel->getUserByEmail($email);
-
-    if (!$user) {
-        header("Location: ../views/userconfig.php?msg=notfound");
-        exit();
-    }
-
-    // Verificar contraseña actual
-    if (!password_verify($currentPassword, $user['password'])) {
-        header("Location: ../views/userconfig.php?msg=wrongcurrent");
+    // Validaciones
+    if (empty($currentPassword) || empty($newPassword) || empty($confirmPassword)) {
+        header("Location: ../view/userconfig.php?msg=emptyfields");
         exit();
     }
 
     // Verificar que las nuevas contraseñas coinciden
     if ($newPassword !== $confirmPassword) {
-        header("Location: ../views/userconfig.php?msg=nomatch");
+        header("Location: ../view/userconfig.php?msg=nomatch");
         exit();
     }
 
-    // Encriptar nueva contraseña y actualizar
-    $hashedNewPassword = password_hash($newPassword, PASSWORD_DEFAULT);
-    $updated = $userModel->updateUserPassword($email, $hashedNewPassword);
+    try {
+        // Obtener usuario desde la base de datos
+        $stmt = $this->pdo->prepare("SELECT password FROM users WHERE email = :email");
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($updated) {
-        header("Location: ../views/userconfig.php?msg=success");
-    } else {
-        header("Location: ../views/userconfig.php?msg=error");
+        if (!$user) {
+            header("Location: ../view/userconfig.php?msg=notfound");
+            exit();
+        }
+
+        // Verificar contraseña actual
+        if (!password_verify($currentPassword, $user['password'])) {
+            header("Location: ../view/userconfig.php?msg=wrongcurrent");
+            exit();
+        }
+
+        // Encriptar nueva contraseña
+        $hashedNewPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
+        // Actualizar contraseña
+        $stmt = $this->pdo->prepare("UPDATE users SET password = :password WHERE email = :email");
+        $stmt->execute([
+            ':password' => $hashedNewPassword,
+            ':email' => $email
+        ]);
+
+        header("Location: ../view/userconfig.php?msg=success");
+        exit();
+    } catch (PDOException $e) {
+        error_log("Error al actualizar contraseña: " . $e->getMessage());
+        header("Location: ../view/userconfig.php?msg=error");
+        exit();
     }
-
-    exit();
     }
 
 
@@ -295,6 +309,5 @@ class UserController
         header("Location: ../view/userconfig.php");
         exit();
     }
-    }
-
+    }   
 }
