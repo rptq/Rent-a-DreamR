@@ -1,5 +1,19 @@
 <?php
 session_start();
+require_once "../controller/functions.php";
+if (!isset($_SESSION["activeUser"])) {
+  $_SESSION["activeUser"] = [
+    "email" => null,
+    "name" => null,
+    "dni" => null,
+    "password" => null,
+    "rol" => null
+  ];
+}
+?>
+
+
+<?php
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user = new UserController();
@@ -17,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if (isset($_POST["updatePassword"])) {
-        $user->updatePassword();
+            $user->updatePassword();
     }
 
     if (isset($_POST["deleteAccount"])) {
@@ -503,6 +517,102 @@ class UserController
         exit();
     }
 
+
+    public function updatePassword(): void
+{
+    // Verifica si el usuario está logueado
+    if (!isset($_SESSION['email'])) {
+        header("Location: ../view/userconfig.php?msg=notfound");
+        exit();
+    }
+
+    $email = $_SESSION['email'];
+    $currentPassword = $_POST['actual'] ?? '';
+    $newPassword = $_POST['nueva'] ?? '';
+    $confirmPassword = $_POST['confirmar'] ?? '';
+
+    // Validaciones
+    if (empty($currentPassword) || empty($newPassword) || empty($confirmPassword)) {
+        header("Location: ../view/userconfig.php?msg=emptyfields");
+        exit();
+    }
+
+    // Verificar que las nuevas contraseñas coinciden
+    if ($newPassword !== $confirmPassword) {
+        header("Location: ../view/userconfig.php?msg=nomatch");
+        exit();
+    }
+
+    try {
+        // Obtener usuario desde la base de datos
+        $stmt = $this->pdo->prepare("SELECT password FROM users WHERE email = :email");
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$user) {
+            header("Location: ../view/userconfig.php?msg=notfound");
+            exit();
+        }
+
+        // Verificar contraseña actual
+        if (!password_verify($currentPassword, $user['password'])) {
+            header("Location: ../view/userconfig.php?msg=wrongcurrent");
+            exit();
+        }
+
+        // Encriptar nueva contraseña
+        $hashedNewPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
+        // Actualizar contraseña
+        $stmt = $this->pdo->prepare("UPDATE users SET password = :password WHERE email = :email");
+        $stmt->execute([
+            ':password' => $hashedNewPassword,
+            ':email' => $email
+        ]);
+
+        header("Location: ../view/userconfig.php?msg=success");
+        exit();
+    } catch (PDOException $e) {
+        error_log("Error al actualizar contraseña: " . $e->getMessage());
+        header("Location: ../view/userconfig.php?msg=error");
+        exit();
+    }
+    }
+
+
+    public function deleteAccount(): void
+{
+    // Verifica si el usuario está logueado
+    if (!isset($_SESSION['email'])) {
+        $_SESSION['error'] = "Debes iniciar sesión para eliminar tu cuenta.";
+        header("Location: ../view/login.html");
+        exit();
+    }
+
+    $email = $_SESSION['email'];
+
+    try {
+        // Eliminar la cuenta del usuario
+        $stmt = $this->pdo->prepare("DELETE FROM users WHERE email = :email");
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+
+        // Cerrar sesión y limpiar datos
+        $_SESSION = [];
+        session_destroy();
+
+        // Redirigir a la página principal
+        header("Location: ../view/index.php");
+        exit();
+    } catch (PDOException $e) {
+        error_log("Error al eliminar la cuenta: " . $e->getMessage());
+        $_SESSION['error'] = "Ocurrió un error al eliminar tu cuenta.";
+        header("Location: ../view/userconfig.php");
+        exit();
+    }
+    }   
+}
     public function updatePassword(): void {}
 
     public function deleteAccount(): void {}
