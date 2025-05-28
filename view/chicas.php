@@ -2,7 +2,7 @@
 require '../controller/UserController.php';
 $ctrl = new UserController;
 $workers = null;
-$workers = $ctrl->listWorkersMan();
+$workers = $ctrl->listWorkersGirls();
 ?>
 
 <!DOCTYPE html>
@@ -65,8 +65,8 @@ $workers = $ctrl->listWorkersMan();
     <header>
         <div class="mainp">
             <div class="mainp-slogan">
-                <h2 class="mainp-slogan-h2">CHICOS</h2>
-                <p class="mainp-slogan-txt">Compañeros de confianza y de calidad</p>
+                <h2 class="mainp-slogan-h2">CHICAS</h2>
+                <p class="mainp-slogan-txt">Compañeras de confianza y de calidad</p>
             </div>
         </div>
     </header>
@@ -122,7 +122,7 @@ $workers = $ctrl->listWorkersMan();
 
     </div>
 
-    <!-- Catálogo de chicos -->
+
     <div class="catalog-container">
         <!-- Filtros -->
         <div id="filters-display" class="filters">
@@ -180,10 +180,10 @@ $workers = $ctrl->listWorkersMan();
             <?php foreach ($workers as $w): ?>
                 <div class="profile-card">
                     <div class="profile-image"
-                        style="background-image: url('img/workers/man/<?= htmlspecialchars($w['idWorker']) ?>.png');">
+                        style="background-image: url('img/workers/girl/<?= htmlspecialchars($w['idWorker']) ?>.png');">
                     </div>
                     <div class="profile-info">
-                        <a href="trabajadores/perfil.php?id=<?= $w['idWorker'] ?>">
+                        <a href="trabajadores/perfil-chicas.php?id=<?= $w['idWorker'] ?>">
                             <h3 class="profile-name"><?= htmlspecialchars($w['name']) ?></h3>
                         </a>
                         <div class="profile-rating">
