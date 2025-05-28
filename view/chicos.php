@@ -67,6 +67,7 @@ $workers = $ctrl->listWorkersMan();
             <div class="mainp-slogan">
                 <h2 class="mainp-slogan-h2">CHICOS</h2>
                 <p class="mainp-slogan-txt">Compañeros de confianza y de calidad</p>
+                <a href="trabajadores/insert/insertWorkerMan.php"><p class="mainp-slogan-txt" style="font-weight: bold;">INSERT NEW WORKER</p></a>
             </div>
         </div>
     </header>
@@ -171,7 +172,6 @@ $workers = $ctrl->listWorkersMan();
             </div>
 
             <button class="filter-button">Apply</button>
-
         </div>
 
         <!-- Perfiles -->
@@ -204,6 +204,20 @@ $workers = $ctrl->listWorkersMan();
                         <p class="profile-price">
                             Desde <?= number_format($w['price'], 0, ',', '.') ?>€/hora
                         </p>
+
+                        <div style="display: flex;">
+                            <?php if (isset($_SESSION["rol"]) && $_SESSION["rol"] == "admin"): ?>
+                                <a href="trabajadores/update/updateWorkerMan.php?id=<?= $w['idWorker'] ?>">
+                                    <p>Actualizar</p>
+                                </a>
+                                <form action="../controller/usercontroller.php" method="POST" onsubmit="return confirm('¿Estás seguro de que quieres eliminar este trabajador? Esta acción no se puede deshacer.');">
+                                    <input type="hidden" name="deleteWorkerMan" value="<?= $w['idWorker'] ?>">
+                                    <button type="submit" style="margin-top: 1.4rem; background:none; border:none; color:red; cursor:pointer; padding:0; font-size:1em;">
+                                        Eliminar
+                                    </button>
+                                </form>
+                            <?php endif; ?>
+                        </div>
                     </div>
                 </div>
             <?php endforeach; ?>

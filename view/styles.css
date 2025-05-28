@@ -94,7 +94,7 @@ a:hover {
     padding: 1.5rem;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    height: 27rem;
+    height: 28.5rem;
 }
 
 .filter-section {
@@ -823,19 +823,19 @@ a:hover {
         overflow: hidden;
 
         &:nth-of-type(1) {
-            background: url("https://images.pexels.com/photos/1845208/pexels-photo-1845208.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260") no-repeat 50% / cover;
+            background: url("img/workers/girl/1.png") no-repeat 60% / cover;
         }
 
         &:nth-of-type(2) {
-            background: url("https://images.pexels.com/photos/36469/woman-person-flowers-wreaths.jpg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260") no-repeat 50% / cover;
+            background: url("img/workers/man/2.png") no-repeat 15% / cover;
         }
 
         &:nth-of-type(3) {
-            background: url("https://images.pexels.com/photos/1468379/pexels-photo-1468379.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260") no-repeat 50% / cover;
+            background: url("img/workers/girl/5.png") no-repeat 60% / cover;
         }
 
         &:nth-of-type(4) {
-            background: url("https://images.pexels.com/photos/247322/pexels-photo-247322.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260") no-repeat 50% / cover;
+            background: url("img/workers/man/3.png") no-repeat 50% / cover;
         }
 
         .carrousel-content {

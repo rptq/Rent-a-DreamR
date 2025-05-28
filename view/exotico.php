@@ -36,7 +36,7 @@ $workers = $ctrl->listWorkersExotic();
                 <a href="exotico.php">EXOTICO</a>
             </div>
             <div>
-                <a href="php/login.php">
+                <a href="login.html">
                     <button class="Btn">
                         <div class="sign"><svg viewBox="0 0 512 512">
                                 <path
@@ -54,6 +54,7 @@ $workers = $ctrl->listWorkersExotic();
                 <div class="mainp-slogan">
                     <h2 class="mainp-slogan-h2">Exotico</h2>
                     <p class="mainp-slogan-txt">Compañeros de confianza y de calidad</p>
+                    <a href="trabajadores/insert/insertWorkerExotic.php"><p class="mainp-slogan-txt" style="font-weight: bold;">INSERT NEW WORKER</p></a>
                 </div>
             </div>
         </header>
@@ -163,39 +164,52 @@ $workers = $ctrl->listWorkersExotic();
             </div>
 
             <!-- Perfiles -->
-        <div class="catalog">
-            <!-- Perfiles php -->
-            <?php foreach ($workers as $w): ?>
-                <div class="profile-card">
-                    <div class="profile-image"
-                        style="background-image: url('img/workers/exotic/<?= htmlspecialchars($w['idWorker']) ?>.png');">
-                    </div>
-                    <div class="profile-info">
-                        <a href="trabajadores/perfil-exotic.php?id=<?= $w['idWorker'] ?>">
-                            <h3 class="profile-name"><?= htmlspecialchars($w['name']) ?></h3>
-                        </a>
-                        <div class="profile-rating">
-                            <div class="stars">
-                                <?php
-                                // Muestra cinco estrellas rellenas y vacías según el rating
-                                $int = floor($w['rating']);
-                                for ($i = 1; $i <= 5; $i++) {
-                                    echo $i <= $int ? '★' : '☆';
-                                }
-                                ?>
-                            </div>
-                            <span class="rating-value"><?= number_format($w['rating'], 1) ?></span>
+            <div class="catalog">
+                <!-- Perfiles php -->
+                <?php foreach ($workers as $w): ?>
+                    <div class="profile-card">
+                        <div class="profile-image"
+                            style="background-image: url('img/workers/exotic/<?= htmlspecialchars($w['idWorker']) ?>.png');">
                         </div>
-                        <p class="profile-description">
-                            <?= nl2br(htmlspecialchars($w['description'])) ?>
-                        </p>
-                        <p class="profile-price">
-                            Desde <?= number_format($w['price'], 0, ',', '.') ?>€/hora
-                        </p>
+                        <div class="profile-info">
+                            <a href="trabajadores/perfil-exotic.php?id=<?= $w['idWorker'] ?>">
+                                <h3 class="profile-name"><?= htmlspecialchars($w['name']) ?></h3>
+                            </a>
+                            <div class="profile-rating">
+                                <div class="stars">
+                                    <?php
+                                    // Muestra cinco estrellas rellenas y vacías según el rating
+                                    $int = floor($w['rating']);
+                                    for ($i = 1; $i <= 5; $i++) {
+                                        echo $i <= $int ? '★' : '☆';
+                                    }
+                                    ?>
+                                </div>
+                                <span class="rating-value"><?= number_format($w['rating'], 1) ?></span>
+                            </div>
+                            <p class="profile-description">
+                                <?= nl2br(htmlspecialchars($w['description'])) ?>
+                            </p>
+                            <p class="profile-price">
+                                Desde <?= number_format($w['price'], 0, ',', '.') ?>€/hora
+                            </p>
+                            <div style="display: flex;">
+                            <?php if (isset($_SESSION["rol"]) && $_SESSION["rol"] == "admin"): ?>
+                                <a href="trabajadores/update/updateWorkerExotico.php?id=<?= $w['idWorker'] ?>">
+                                    <p>Actualizar</p>
+                                </a>
+                                <form action="../controller/usercontroller.php" method="POST" onsubmit="return confirm('¿Estás seguro de que quieres eliminar este trabajador? Esta acción no se puede deshacer.');">
+                                    <input type="hidden" name="deleteWorkerExotic" value="<?= $w['idWorker'] ?>">
+                                    <button type="submit" style="margin-top: 1.4rem; background:none; border:none; color:red; cursor:pointer; padding:0; font-size:1em;">
+                                        Eliminar
+                                    </button>
+                                </form>
+                            <?php endif; ?>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            <?php endforeach; ?>
-        </div>
+                <?php endforeach; ?>
+            </div>
         </div>
     </div>
 </body>
