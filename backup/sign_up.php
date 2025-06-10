@@ -8,6 +8,7 @@ if ($_SESSION["users"])
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["Register"])) {
         $email = htmlspecialchars(trim($_POST['email']));
         $nombre = htmlspecialchars(trim($_POST['nombre']));
+        $surname = htmlspecialchars(trim($_POST['surname']));
         $dni = htmlspecialchars(trim($_POST['dni']));
         $password = password_hash($_POST['password'], PASSWORD_DEFAULT); // Encriptar contraseña
         if ($_POST["rol"] == "1"){
@@ -29,6 +30,7 @@ if ($_SESSION["users"])
             $_SESSION["users"][] = [
                 "email" => $email,
                 "name" => $nombre,
+                "surname" => $surname,
                 "dni" => $dni,
                 "password" => $password,
                 "rol" => $rol
@@ -65,7 +67,8 @@ if ($_SESSION["users"])
                 <div class="heading">Register</div>
                 <form method="POST" class="form">
                     <input required class="input" type="email" name="email" id="email" placeholder="E-mail">
-                    <input required class="input" type="dni" name="nombre" id="nombre" placeholder="Nombre">
+                    <input required class="input" type="nombre" name="nombre" id="nombre" placeholder="Nombre">
+                    <input required class="input" type="surname" name="surname" id="surname" placeholder="Apellido">
                     <input required class="input" type="dni" name="dni" id="dni" placeholder="DNI">
                     <input required class="input" type="password" name="password" id="password" placeholder="Password">
                     <div class="radio-inputs">
