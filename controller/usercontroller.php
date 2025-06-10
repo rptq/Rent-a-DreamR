@@ -97,7 +97,7 @@ class UserController
     {
         // 2) Saca todos los registros de workerexotic
         $stmt = $this->pdo->query("SELECT idWorker, name, age, height, description, rating, price FROM workerexotic");
-        return $stmt->fetchAll();
+        return $stmt->fetchAll(); 
     }
 
     public function getWorkerById($id)
