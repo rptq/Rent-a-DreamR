@@ -447,12 +447,13 @@ class UserController
     {
         $email = $_POST['email'] ?? '';
         $username = $_POST['name'] ?? '';
+        $surname = $_POST['surname'] ?? '';
         $password = $_POST['password'] ?? '';
         $rol = $_POST["rol"] ?? 'user';
         $dni = $_POST["dni"] ?? '';
 
         // Validaciones
-        if (empty($username) || empty($email) || empty($password)) {
+        if (empty($username) || empty($email) || empty($password) || empty($surname)) {
             $_SESSION['error'] = "Todos los campos son requeridos";
             header("Location: ../view/sign_up.html");
             exit();
