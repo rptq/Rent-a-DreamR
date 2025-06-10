@@ -410,7 +410,7 @@ class UserController
 
         try {
             $stmt = $this->pdo->prepare("
-                SELECT name, email, password, rol, dni 
+                SELECT name, surname, email, password, rol, dni 
                 FROM users 
                 WHERE email = :email
             ");
@@ -423,6 +423,7 @@ class UserController
             if ($user && password_verify($password, $user['password'])) {
                 $_SESSION['logged'] = true;
                 $_SESSION['username'] = $user['name'];
+                $_SESSION['surname'] = $user['surname'];
                 $_SESSION['email'] = $user['email'];
                 $_SESSION['rol'] = $user['rol'];
                 $_SESSION['dni'] = $user['dni'];
@@ -482,12 +483,13 @@ class UserController
 
             $stmt = $this->pdo->prepare("
                 INSERT INTO users 
-                (name, email, password, rol, dni) 
+                (name, surname, email, password, rol, dni) 
                 VALUES (:name, :email, :password, :rol, :dni)
             ");
 
             $stmt->execute([
                 ':name' => $username,
+                ':surname' => $surname,
                 ':email' => $email,
                 ':password' => $passwordHash,
                 ':rol' => $rol,
@@ -496,6 +498,7 @@ class UserController
 
             $_SESSION['logged'] = true;
             $_SESSION['username'] = $username;
+            $_SESSION['surname'] = $surname;
             $_SESSION['email'] = $email;
             $_SESSION['rol'] = $rol;
             $_SESSION['dni'] = $dni;
