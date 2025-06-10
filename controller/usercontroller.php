@@ -19,6 +19,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user = new UserController();
 
     if (isset($_POST["login"])) {
+
+        
         $user->login();
     }
 
@@ -405,6 +407,7 @@ class UserController
 
     public function login(): void
     {
+        echo __LINE__;
         $email = $_POST['email'] ?? '';
         $password = $_POST['password'] ?? '';
 
@@ -416,10 +419,12 @@ class UserController
             ");
 
             $stmt->bindParam(':email', $email);
+            echo __LINE__;
             $stmt->execute();
 
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
+            echo __LINE__;
             if ($user && password_verify($password, $user['password'])) {
                 $_SESSION['logged'] = true;
                 $_SESSION['username'] = $user['name'];
@@ -484,8 +489,9 @@ class UserController
             $stmt = $this->pdo->prepare("
                 INSERT INTO users 
                 (name, surname, email, password, rol, dni) 
-                VALUES (:name, :email, :password, :rol, :dni)
+                VALUES (:name, :surname, :email, :password, :rol, :dni)
             ");
+              echo __LINE__;
 
             $stmt->execute([
                 ':name' => $username,
@@ -495,6 +501,7 @@ class UserController
                 ':rol' => $rol,
                 ':dni' => $dni
             ]);
+              echo __LINE__;
 
             $_SESSION['logged'] = true;
             $_SESSION['username'] = $username;
@@ -506,6 +513,7 @@ class UserController
             header("Location: ../view/index.php");
             exit();
         } catch (PDOException $e) {
+            echo __LINE__ . $e->getMessage();
             error_log("Error de registro: " . $e->getMessage());
             $_SESSION['error'] = "Error en el registro";
             header("Location: ../view/sign_up.html");

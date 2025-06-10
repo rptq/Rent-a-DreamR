@@ -10,7 +10,18 @@ if ($_SESSION["users"])
         $nombre = htmlspecialchars(trim($_POST['nombre']));
         $surname = htmlspecialchars(trim($_POST['surname']));
         $dni = htmlspecialchars(trim($_POST['dni']));
-        $password = password_hash($_POST['password'], PASSWORD_DEFAULT); // Encriptar contraseña
+        $regex = "/^(?=(?:[^0-9]*[0-9][^0-9]*)$)[a-zA-Z0-9]{6}$/";
+        $password = $_POST['password'];
+
+        if (preg_match($regex, $password) === 1) {
+            $password = password_hash($password, PASSWORD_DEFAULT);
+            
+        } else {
+            echo "Solo se permiten contraseñas de 6 caracteres alfanuméricos e incluir al menos un número.";
+            exit;
+        }
+
+
         if ($_POST["rol"] == "1"){
             $rol = "user";
         } else {

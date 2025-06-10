@@ -73,7 +73,7 @@ class UserController {
         $_SESSION['error'] = "Nombre de usuario o contraseña inválidos.";
         echo $_SESSION['error'];
         echo $password;
-        // header("Location: ../view/login.html");
+        header("Location: ../view/login.html");
         exit();
     }
 

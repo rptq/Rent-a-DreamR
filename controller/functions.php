@@ -27,6 +27,7 @@
     }
 
     function printUserName(): void{
+        // var_dump($_SESSION);
         $resultPrintUsername = (isset($_SESSION['logged']))?$_SESSION['username']:null;
         echo $resultPrintUsername;
     }
