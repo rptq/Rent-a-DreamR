@@ -6,6 +6,7 @@ if (!isset($_SESSION["activeUser"])) {
     "email" => null,
     "name" => null,
     "surname" => null,
+    "phone" => null,
     "dni" => null,
     "password" => null,
     "rol" => null
@@ -176,6 +177,7 @@ if (!isset($_SESSION["activeUser"])) {
     <section class="profile-info">
       <p><strong>Nombre:</strong> <?= htmlspecialchars($_SESSION['username'] ?? 'Usuario') ?></p>
       <p><strong>Email:</strong> <?= htmlspecialchars($_SESSION['email'] ?? 'usuario@ejemplo.com') ?></p>
+      <p><strong>Phone:</strong> <?= htmlspecialchars($_SESSION['phone'] ?? 'usuario@ejemplo.com') ?></p>
 
       <form action="../controller/usercontroller.php" method="POST">
         <button class="btn-logout" name="logout" type="submit">Cerrar Sesión</button>

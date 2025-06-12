@@ -73,7 +73,7 @@ class UserController {
         $_SESSION['error'] = "Nombre de usuario o contraseña inválidos.";
         echo $_SESSION['error'];
         echo $password;
-        // header("Location: ../view/login.html");
+        header("Location: ../view/login.html");
         exit();
     }
 
@@ -81,12 +81,13 @@ class UserController {
         // Obtener datos del formulario
         $email = $_POST['email'];
         $username = $_POST['name'];
+        $phone = $_POST['phone'];
         $password = $_POST['password'];
         $rol = $_POST["rol"];
         $dni = $_POST["dni"];
 
         // Validar que los campos no esten vacíos
-        if (empty($username) || empty($email) || empty($password)) {
+        if (empty($username) || empty($email) || empty($password) || empty($phone)) {
             $_SESSION['error'] = "Por favor, complete todos los campos.";
             header("Location: ../view/sign_up.html");
             exit();

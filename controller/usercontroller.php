@@ -19,6 +19,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user = new UserController();
 
     if (isset($_POST["login"])) {
+
+        
         $user->login();
     }
 
@@ -405,24 +407,29 @@ class UserController
 
     public function login(): void
     {
+        echo __LINE__;
         $email = $_POST['email'] ?? '';
         $password = $_POST['password'] ?? '';
 
         try {
             $stmt = $this->pdo->prepare("
-                SELECT name, email, password, rol, dni 
+                SELECT name, surname, phone, email, password, rol, dni 
                 FROM users 
                 WHERE email = :email
             ");
 
             $stmt->bindParam(':email', $email);
+            echo __LINE__;
             $stmt->execute();
 
             $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
+            echo __LINE__;
             if ($user && password_verify($password, $user['password'])) {
                 $_SESSION['logged'] = true;
                 $_SESSION['username'] = $user['name'];
+                $_SESSION['surname'] = $user['surname'];
+                $_SESSION['phone'] = $user['phone'];
                 $_SESSION['email'] = $user['email'];
                 $_SESSION['rol'] = $user['rol'];
                 $_SESSION['dni'] = $user['dni'];
@@ -448,13 +455,20 @@ class UserController
         $email = $_POST['email'] ?? '';
         $username = $_POST['name'] ?? '';
         $surname = $_POST['surname'] ?? '';
+        $phone = $_POST['phone'] ?? '';
         $password = $_POST['password'] ?? '';
         $rol = $_POST["rol"] ?? 'user';
         $dni = $_POST["dni"] ?? '';
 
         // Validaciones
-        if (empty($username) || empty($email) || empty($password) || empty($surname)) {
+        if (empty($username) || empty($email) || empty($password) || empty($surname) || empty($phone)) {
             $_SESSION['error'] = "Todos los campos son requeridos";
+            header("Location: ../view/sign_up.html");
+            exit();
+        }
+
+        if () {
+            $_SESSION['error'] = "Email inválido";
             header("Location: ../view/sign_up.html");
             exit();
         }
@@ -471,31 +485,52 @@ class UserController
             $stmt->bindParam(':email', $email);
             $stmt->execute();
 
+            
+
             if ($stmt->fetch()) {
                 $_SESSION['error'] = "El email ya está registrado";
                 header("Location: ../view/sign_up.html");
                 exit();
             }
 
+
+            // Verificar si el telefono ya existe
+            $stmtp = $this->pdo->prepare("SELECT id FROM users WHERE phone = :phone");
+            $stmtp->bindParam(':phone', $phone);
+            $stmtp->execute();
+
+            if ($stmtp->fetch()) {
+                $_SESSION['error'] = "El telefono ya está registrado";
+                header("Location: ../view/sign_up.html");
+                exit();
+            }
+
+
             // Hash de contraseña
             $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
             $stmt = $this->pdo->prepare("
                 INSERT INTO users 
-                (name, email, password, rol, dni) 
-                VALUES (:name, :email, :password, :rol, :dni)
+                (name, surname, phone, email, password, rol, dni) 
+                VALUES (:name, :surname, :phone, :email, :password, :rol, :dni)
             ");
+              echo __LINE__;
 
             $stmt->execute([
                 ':name' => $username,
+                ':surname' => $surname,
+                ':phone' => $phone,
                 ':email' => $email,
                 ':password' => $passwordHash,
                 ':rol' => $rol,
                 ':dni' => $dni
             ]);
+              echo __LINE__;
 
             $_SESSION['logged'] = true;
             $_SESSION['username'] = $username;
+            $_SESSION['surname'] = $surname;
+            $_SESSION['phone'] = $phone;
             $_SESSION['email'] = $email;
             $_SESSION['rol'] = $rol;
             $_SESSION['dni'] = $dni;
@@ -503,6 +538,7 @@ class UserController
             header("Location: ../view/index.php");
             exit();
         } catch (PDOException $e) {
+            echo __LINE__ . $e->getMessage();
             error_log("Error de registro: " . $e->getMessage());
             $_SESSION['error'] = "Error en el registro";
             header("Location: ../view/sign_up.html");

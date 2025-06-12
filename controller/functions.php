@@ -5,6 +5,8 @@
                 [
                     "email" => "admin@admin.net",
                     "name" => "admin",
+                    "surname" => "surname",
+                    "phone" => "phone",
                     "dni" => null,
                     "password" => password_hash("admin", PASSWORD_DEFAULT),
                     "rol" => "admin"
@@ -12,6 +14,8 @@
                 [
                     "email" => "user@user.net",
                     "name" => "user",
+                    "surname" => "surname",
+                    "phone" => "phone",
                     "dni" => null,
                     "password" => password_hash("user", PASSWORD_DEFAULT),
                     "rol" => "user"
@@ -25,6 +29,7 @@
     }
 
     function printUserName(): void{
+        // var_dump($_SESSION);
         $resultPrintUsername = (isset($_SESSION['logged']))?$_SESSION['username']:null;
         echo $resultPrintUsername;
     }
