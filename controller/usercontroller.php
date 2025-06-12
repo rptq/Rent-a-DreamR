@@ -413,7 +413,7 @@ class UserController
 
         try {
             $stmt = $this->pdo->prepare("
-                SELECT name, surname, email, password, rol, dni 
+                SELECT name, surname, phone, email, password, rol, dni 
                 FROM users 
                 WHERE email = :email
             ");
@@ -429,6 +429,7 @@ class UserController
                 $_SESSION['logged'] = true;
                 $_SESSION['username'] = $user['name'];
                 $_SESSION['surname'] = $user['surname'];
+                $_SESSION['phone'] = $user['phone'];
                 $_SESSION['email'] = $user['email'];
                 $_SESSION['rol'] = $user['rol'];
                 $_SESSION['dni'] = $user['dni'];
@@ -454,13 +455,20 @@ class UserController
         $email = $_POST['email'] ?? '';
         $username = $_POST['name'] ?? '';
         $surname = $_POST['surname'] ?? '';
+        $phone = $_POST['phone'] ?? '';
         $password = $_POST['password'] ?? '';
         $rol = $_POST["rol"] ?? 'user';
         $dni = $_POST["dni"] ?? '';
 
         // Validaciones
-        if (empty($username) || empty($email) || empty($password) || empty($surname)) {
+        if (empty($username) || empty($email) || empty($password) || empty($surname) || empty($phone)) {
             $_SESSION['error'] = "Todos los campos son requeridos";
+            header("Location: ../view/sign_up.html");
+            exit();
+        }
+
+        if () {
+            $_SESSION['error'] = "Email inválido";
             header("Location: ../view/sign_up.html");
             exit();
         }
@@ -477,25 +485,41 @@ class UserController
             $stmt->bindParam(':email', $email);
             $stmt->execute();
 
+            
+
             if ($stmt->fetch()) {
                 $_SESSION['error'] = "El email ya está registrado";
                 header("Location: ../view/sign_up.html");
                 exit();
             }
 
+
+            // Verificar si el telefono ya existe
+            $stmtp = $this->pdo->prepare("SELECT id FROM users WHERE phone = :phone");
+            $stmtp->bindParam(':phone', $phone);
+            $stmtp->execute();
+
+            if ($stmtp->fetch()) {
+                $_SESSION['error'] = "El telefono ya está registrado";
+                header("Location: ../view/sign_up.html");
+                exit();
+            }
+
+
             // Hash de contraseña
             $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
             $stmt = $this->pdo->prepare("
                 INSERT INTO users 
-                (name, surname, email, password, rol, dni) 
-                VALUES (:name, :surname, :email, :password, :rol, :dni)
+                (name, surname, phone, email, password, rol, dni) 
+                VALUES (:name, :surname, :phone, :email, :password, :rol, :dni)
             ");
               echo __LINE__;
 
             $stmt->execute([
                 ':name' => $username,
                 ':surname' => $surname,
+                ':phone' => $phone,
                 ':email' => $email,
                 ':password' => $passwordHash,
                 ':rol' => $rol,
@@ -506,6 +530,7 @@ class UserController
             $_SESSION['logged'] = true;
             $_SESSION['username'] = $username;
             $_SESSION['surname'] = $surname;
+            $_SESSION['phone'] = $phone;
             $_SESSION['email'] = $email;
             $_SESSION['rol'] = $rol;
             $_SESSION['dni'] = $dni;

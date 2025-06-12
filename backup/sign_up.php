@@ -9,15 +9,16 @@ if ($_SESSION["users"])
         $email = htmlspecialchars(trim($_POST['email']));
         $nombre = htmlspecialchars(trim($_POST['nombre']));
         $surname = htmlspecialchars(trim($_POST['surname']));
+        $phone = htmlspecialchars(trim($_POST['phone']));
         $dni = htmlspecialchars(trim($_POST['dni']));
-        $regex = "/^(?=(?:[^0-9]*[0-9][^0-9]*)$)[a-zA-Z0-9]{6}$/";
-        $password = $_POST['password'];
+        $password = password_hash($password, PASSWORD_DEFAULT);
 
-        if (preg_match($regex, $password) === 1) {
-            $password = password_hash($password, PASSWORD_DEFAULT);
+        $regexphone = "^[0-9]*\{9}$";
+
+        if (preg_match($regexphone, $phone) == 1) {
             
         } else {
-            echo "Solo se permiten contraseñas de 6 caracteres alfanuméricos e incluir al menos un número.";
+            echo "telefono invalido";
             exit;
         }
 
@@ -42,6 +43,7 @@ if ($_SESSION["users"])
                 "email" => $email,
                 "name" => $nombre,
                 "surname" => $surname,
+                "phone" => $phone,
                 "dni" => $dni,
                 "password" => $password,
                 "rol" => $rol
@@ -80,6 +82,7 @@ if ($_SESSION["users"])
                     <input required class="input" type="email" name="email" id="email" placeholder="E-mail">
                     <input required class="input" type="nombre" name="nombre" id="nombre" placeholder="Nombre">
                     <input required class="input" type="surname" name="surname" id="surname" placeholder="Apellido">
+                    <input required class="input" type="phone" name="phone" id="phone" placeholder="Telefono">
                     <input required class="input" type="dni" name="dni" id="dni" placeholder="DNI">
                     <input required class="input" type="password" name="password" id="password" placeholder="Password">
                     <div class="radio-inputs">

@@ -5,6 +5,7 @@ if (!isset($_SESSION["activeUser"])) {
   $_SESSION["activeUser"] = [
     "email" => null,
     "name" => null,
+    "phone" => null,
     "dni" => null,
     "password" => null,
     "rol" => null
